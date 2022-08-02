@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.pixivel.mapper.PixPictureDetailedMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixPictureDetailed">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.pix_picture_detailed-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="prefix" jdbcType="VARCHAR" property="prefix" />
+    <result column="suffix" jdbcType="VARCHAR" property="suffix" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="graphics" jdbcType="INTEGER" property="graphics" />
+    <result column="mapping_id" jdbcType="VARCHAR" property="mappingId" />
+    <association property="pixMapping" javaType="com.hikari.system.pixivel.entity.PixMapping" column="mapping_id" select="com.hikari.system.pixivel.mapper.PixMappingMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, `path`, `prefix`, suffix, height, width, `type`, graphics, mapping_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_picture_detailed
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.pix_picture_detailed
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixPictureDetailed" useGeneratedKeys="true">
+    <selectKey resultType="java.lang.String" keyColumn="id" order="AFTER">
+      select last_insert_id()
+    </selectKey>
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_picture_detailed (id, `name`, `path`, 
+      `prefix`, suffix, height, 
+      width, `type`, graphics, 
+      mapping_id)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{prefix,jdbcType=VARCHAR}, #{suffix,jdbcType=VARCHAR}, #{height,jdbcType=INTEGER}, 
+      #{width,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{graphics,jdbcType=INTEGER}, 
+      #{mappingId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixPictureDetailed">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_picture_detailed
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="prefix != null">
+        `prefix` = #{prefix,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null">
+        suffix = #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="graphics != null">
+        graphics = #{graphics,jdbcType=INTEGER},
+      </if>
+      <if test="mappingId != null">
+        mapping_id = #{mappingId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_picture_detailed
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.name != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.name,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`path` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.path != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.path,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`prefix` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.prefix != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.prefix,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="suffix = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.suffix != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.suffix,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="height = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.height != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.height,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="width = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.width != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.width,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.type != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.type,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="graphics = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.graphics != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.graphics,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="mapping_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.mappingId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.mappingId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_picture_detailed
+    (id, `name`, `path`, `prefix`, suffix, height, width, `type`, graphics, mapping_id
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.path,jdbcType=VARCHAR}, 
+        #{item.prefix,jdbcType=VARCHAR}, #{item.suffix,jdbcType=VARCHAR}, #{item.height,jdbcType=INTEGER}, 
+        #{item.width,jdbcType=INTEGER}, #{item.type,jdbcType=INTEGER}, #{item.graphics,jdbcType=INTEGER}, 
+        #{item.mappingId,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+</mapper>

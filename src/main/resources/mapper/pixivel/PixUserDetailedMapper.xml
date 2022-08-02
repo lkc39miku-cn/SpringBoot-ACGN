@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.pixivel.mapper.PixUserDetailedMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixUserDetailed">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.pix_user_detailed-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="country_id" jdbcType="VARCHAR" property="countryId" />
+    <result column="birthday_year" jdbcType="TIMESTAMP" property="birthdayYear" />
+    <result column="birthday_other" jdbcType="TIMESTAMP" property="birthdayOther" />
+    <result column="profession_id" jdbcType="VARCHAR" property="professionId" />
+    <result column="pix_user_id" jdbcType="VARCHAR" property="pixUserId" />
+    <result column="user_detailed_show_id" jdbcType="VARCHAR" property="userDetailedShowId" />
+    <association property="pixUserDetailedShow" javaType="com.hikari.system.pixivel.entity.PixUserDetailedShow" column="user_detailed_show_id" select="com.hikari.system.pixivel.mapper.PixUserDetailedShowMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, sex, country_id, birthday_year, birthday_other, profession_id, pix_user_id, user_detailed_show_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_user_detailed
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.pix_user_detailed
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUserDetailed">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_user_detailed (id, sex, country_id, 
+      birthday_year, birthday_other, profession_id, 
+      pix_user_id, user_detailed_show_id)
+    values (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{countryId,jdbcType=VARCHAR}, 
+      #{birthdayYear,jdbcType=TIMESTAMP}, #{birthdayOther,jdbcType=TIMESTAMP}, #{professionId,jdbcType=VARCHAR}, 
+      #{pixUserId,jdbcType=VARCHAR}, #{userDetailedShowId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUserDetailed">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_user_detailed
+    <set>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null">
+        country_id = #{countryId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdayYear != null">
+        birthday_year = #{birthdayYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthdayOther != null">
+        birthday_other = #{birthdayOther,jdbcType=TIMESTAMP},
+      </if>
+      <if test="professionId != null">
+        profession_id = #{professionId,jdbcType=VARCHAR},
+      </if>
+      <if test="pixUserId != null">
+        pix_user_id = #{pixUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="userDetailedShowId != null">
+        user_detailed_show_id = #{userDetailedShowId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_user_detailed
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="sex = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.sex != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.sex,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="country_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.countryId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.countryId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="birthday_year = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.birthdayYear != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.birthdayYear,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="birthday_other = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.birthdayOther != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.birthdayOther,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="profession_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.professionId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.professionId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pix_user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.pixUserId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.pixUserId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="user_detailed_show_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.userDetailedShowId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.userDetailedShowId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_user_detailed
+    (id, sex, country_id, birthday_year, birthday_other, profession_id, pix_user_id, 
+      user_detailed_show_id)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.sex,jdbcType=INTEGER}, #{item.countryId,jdbcType=VARCHAR}, 
+        #{item.birthdayYear,jdbcType=TIMESTAMP}, #{item.birthdayOther,jdbcType=TIMESTAMP}, 
+        #{item.professionId,jdbcType=VARCHAR}, #{item.pixUserId,jdbcType=VARCHAR}, #{item.userDetailedShowId,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+</mapper>

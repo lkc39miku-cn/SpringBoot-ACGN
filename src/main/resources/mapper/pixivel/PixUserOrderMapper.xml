@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.pixivel.mapper.PixUserOrderMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixUserOrder">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.pix_user_order-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="context" jdbcType="VARCHAR" property="context" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="pix_user_id" jdbcType="VARCHAR" property="pixUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <association property="pixUser" javaType="com.hikari.system.pixivel.entity.PixUser" column="pix_user_id" select="com.hikari.system.pixivel.mapper.PixUserMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, order_number, price, context, `status`, pix_user_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_user_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.pix_user_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUserOrder">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_user_order (id, order_number, price, 
+      context, `status`, pix_user_id, 
+      create_time, update_time)
+    values (#{id,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{context,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{pixUserId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUserOrder">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_user_order
+    <set>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="pixUserId != null">
+        pix_user_id = #{pixUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_user_order
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="order_number = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.orderNumber != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.orderNumber,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.price != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.price,jdbcType=DECIMAL}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="context = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.context != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.context,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.status,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pix_user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.pixUserId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.pixUserId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_user_order
+    (id, order_number, price, context, `status`, pix_user_id, create_time, update_time
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.orderNumber,jdbcType=VARCHAR}, #{item.price,jdbcType=DECIMAL}, 
+        #{item.context,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.pixUserId,jdbcType=VARCHAR}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+</mapper>

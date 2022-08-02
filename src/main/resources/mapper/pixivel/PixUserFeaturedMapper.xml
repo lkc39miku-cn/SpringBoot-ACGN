@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.pixivel.mapper.PixUserFeaturedMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixUserFeatured">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.pix_user_featured-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="pix_user_id" jdbcType="VARCHAR" property="pixUserId" />
+    <result column="picture_collection_id" jdbcType="VARCHAR" property="pictureCollectionId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, pix_user_id, picture_collection_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_user_featured
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.pix_user_featured
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUserFeatured">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_user_featured (id, pix_user_id, picture_collection_id, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{pixUserId,jdbcType=VARCHAR}, #{pictureCollectionId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUserFeatured">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_user_featured
+    <set>
+      <if test="pixUserId != null">
+        pix_user_id = #{pixUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureCollectionId != null">
+        picture_collection_id = #{pictureCollectionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_user_featured
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="pix_user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.pixUserId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.pixUserId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="picture_collection_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.pictureCollectionId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.pictureCollectionId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_user_featured
+    (id, pix_user_id, picture_collection_id, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.pixUserId,jdbcType=VARCHAR}, #{item.pictureCollectionId,jdbcType=VARCHAR}, 
+        #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+</mapper>

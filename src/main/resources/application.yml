@@ -1,0 +1,10 @@
+server:
+  port: 8080
+  address: 192.168.224.186
+
+spring:
+  profiles:
+    active: swagger, thread-pool, async, druid, file, mybatis
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

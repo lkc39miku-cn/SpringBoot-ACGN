@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.pixivel.mapper.PixPictureCollectionMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixPictureCollection">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.pix_picture_collection-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="tag_id" jdbcType="VARCHAR" property="tagId" />
+    <result column="praise" jdbcType="INTEGER" property="praise" />
+    <result column="collect" jdbcType="INTEGER" property="collect" />
+    <result column="browse" jdbcType="INTEGER" property="browse" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="picture_type" jdbcType="INTEGER" property="pictureType" />
+    <result column="pix_user_id" jdbcType="VARCHAR" property="pixUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <collection property="pixPictureList" ofType="com.hikari.system.pixivel.entity.PixPicture" column="id" select="com.hikari.system.pixivel.mapper.PixPictureMapper.selectByCollectionId" />
+    <collection property="tagList" ofType="com.hikari.system.pixivel.entity.PixTag" column="tag_id" select="com.hikari.system.pixivel.mapper.PixTagMapper.selectByIdList" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, title, info, tag_id, praise, `collect`, `browse`, `status`, picture_type, pix_user_id, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_picture_collection
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_picture_collection
+    <where>
+      <if test="title != null and title != ''">
+        title like concat('%', #{title,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+  </select>
+  <select id="selectByCollect" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_picture_collection
+    left join spring_cloud.pix_user_collect puc on pix_picture_collection.id = puc.picture_collection_id
+    group by pix_picture_collection.id
+    order by pix_picture_collection.id desc
+    limit 20
+  </select>
+  <select id="selectByPraise" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_picture_collection
+    left join spring_cloud.pix_user_praise pup on pix_picture_collection.id = pup.picture_collection_id
+    group by pix_picture_collection.id
+    order by pix_picture_collection.id desc
+    limit 20
+  </select>
+  <select id="selectByIdList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_picture_collection
+    where id in
+    <foreach collection="idList" item="id" open="(" separator="," close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.pix_picture_collection
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixPictureCollection" useGeneratedKeys="true">
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER">
+      select last_insert_id()
+    </selectKey>
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_picture_collection (id, title, info, 
+      tag_id, praise, `collect`, 
+      `browse`, `status`, picture_type, 
+      pix_user_id, create_time)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, 
+      #{tagId,jdbcType=VARCHAR}, #{praise,jdbcType=INTEGER}, #{collect,jdbcType=INTEGER}, 
+      #{browse,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{pictureType,jdbcType=INTEGER}, 
+      #{pixUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixPictureCollection">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_picture_collection
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=VARCHAR},
+      </if>
+      <if test="praise != null">
+        praise = #{praise,jdbcType=INTEGER},
+      </if>
+      <if test="collect != null">
+        `collect` = #{collect,jdbcType=INTEGER},
+      </if>
+      <if test="browse != null">
+        `browse` = #{browse,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="pictureType != null">
+        picture_type = #{pictureType,jdbcType=INTEGER},
+      </if>
+      <if test="pixUserId != null">
+        pix_user_id = #{pixUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_picture_collection
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="title = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.title != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.title,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="info = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.info != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.info,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="tag_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.tagId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.tagId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="praise = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.praise != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.praise,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`collect` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.collect != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.collect,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`browse` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.browse != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.browse,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.status,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="picture_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.pictureType != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.pictureType,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pix_user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.pixUserId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.pixUserId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_picture_collection
+    (id, title, info, tag_id, praise, `collect`, `browse`, `status`, picture_type, pix_user_id, 
+      create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR}, #{item.info,jdbcType=VARCHAR}, 
+        #{item.tagId,jdbcType=VARCHAR}, #{item.praise,jdbcType=INTEGER}, #{item.collect,jdbcType=INTEGER}, 
+        #{item.browse,jdbcType=INTEGER}, #{item.status,jdbcType=INTEGER}, #{item.pictureType,jdbcType=INTEGER}, 
+        #{item.pixUserId,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.pixivel.mapper.PixPictureMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixPicture">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.pix_picture-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="picture_collection_id" jdbcType="VARCHAR" property="pictureCollectionId" />
+    <result column="picture_detailed_id" jdbcType="VARCHAR" property="pictureDetailedId" />
+    <association property="pixPictureDetailed" javaType="com.hikari.system.pixivel.entity.PixPictureDetailed" column="picture_detailed_id" select="com.hikari.system.pixivel.mapper.PixPictureDetailedMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, sort, picture_collection_id, picture_detailed_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_picture
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCollectionId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.pix_picture
+    where picture_collection_id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.pix_picture
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixPicture">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_picture (id, sort, picture_collection_id, 
+      picture_detailed_id)
+    values (#{id,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{pictureCollectionId,jdbcType=VARCHAR}, 
+      #{pictureDetailedId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixPicture">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_picture
+    <set>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="pictureCollectionId != null">
+        picture_collection_id = #{pictureCollectionId,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureDetailedId != null">
+        picture_detailed_id = #{pictureDetailedId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.pix_picture
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="sort = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.sort != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.sort,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="picture_collection_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.pictureCollectionId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.pictureCollectionId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="picture_detailed_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.pictureDetailedId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.pictureDetailedId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.pix_picture
+    (id, sort, picture_collection_id, picture_detailed_id)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.sort,jdbcType=INTEGER}, #{item.pictureCollectionId,jdbcType=VARCHAR}, 
+        #{item.pictureDetailedId,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+</mapper>

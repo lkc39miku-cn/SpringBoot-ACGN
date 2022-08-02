@@ -1,0 +1,10 @@
+swagger:
+  title: SpringCloud-ACGN
+  description: none
+  name: lkc39miku_cn
+  url: none
+  email: lkc39miku_cn@outlook.com
+  version: 1.0
+  enable: true
+  path-mapping: /
+  address-enabled: false
