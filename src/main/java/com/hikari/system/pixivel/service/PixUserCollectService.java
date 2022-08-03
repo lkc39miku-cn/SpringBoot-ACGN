@@ -25,4 +25,8 @@ public interface PixUserCollectService{
     int batchInsert(List<PixUserCollect> list);
 
     PageInfo<PixUserCollect> selectList(PixUserCollect pixUserCollect);
+
+    List<String> selectTag();
+
+    int updateTagBatch(PixUserCollect pixUserCollect);
 }

@@ -32,6 +32,10 @@
     delete from spring_cloud.pix_picture
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteByPictureCollectionId" parameterType="java.lang.String">
+    delete from spring_cloud.pix_picture
+    where picture_collection_id = #{id,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixPicture">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_picture (id, sort, picture_collection_id, 
@@ -96,4 +100,6 @@
         #{item.pictureDetailedId,jdbcType=VARCHAR})
     </foreach>
   </insert>
+
+
 </mapper>

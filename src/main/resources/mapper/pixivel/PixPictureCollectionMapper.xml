@@ -23,6 +23,10 @@
     id, title, info, tag_id, praise, `collect`, `browse`, `status`, picture_type, pix_user_id, 
     create_time
   </sql>
+  <sql id="Base_Column_List_Rename">
+    <!--@mbg.generated-->
+    select ppc.id, ppc.title, ppc.info, ppc.tag_id, ppc.praise, ppc.`collect`, ppc.`browse`, ppc.`status`, ppc.picture_type, ppc.pix_user_id, ppc.create_time from spring_cloud.pix_picture_collection ppc
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
@@ -41,21 +45,17 @@
     </where>
   </select>
   <select id="selectByCollect" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from spring_cloud.pix_picture_collection
-    left join spring_cloud.pix_user_collect puc on pix_picture_collection.id = puc.picture_collection_id
-    group by pix_picture_collection.id
-    order by pix_picture_collection.id desc
+    <include refid="Base_Column_List_Rename" />
+    left join spring_cloud.pix_user_collect puc on ppc.id = puc.picture_collection_id
+    group by ppc.id
+    order by ppc.id desc
     limit 20
   </select>
   <select id="selectByPraise" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from spring_cloud.pix_picture_collection
-    left join spring_cloud.pix_user_praise pup on pix_picture_collection.id = pup.picture_collection_id
-    group by pix_picture_collection.id
-    order by pix_picture_collection.id desc
+    <include refid="Base_Column_List_Rename" />
+    left join spring_cloud.pix_user_praise pup on ppc.id = pup.picture_collection_id
+    group by ppc.id
+    order by ppc.id desc
     limit 20
   </select>
   <select id="selectByIdList" resultMap="BaseResultMap">

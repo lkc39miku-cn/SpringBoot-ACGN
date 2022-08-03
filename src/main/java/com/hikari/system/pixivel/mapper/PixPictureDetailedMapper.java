@@ -24,4 +24,6 @@ public interface PixPictureDetailedMapper {
     int updateBatchSelective(List<PixPictureDetailed> list);
 
     int batchInsert(@Param("list") List<PixPictureDetailed> list);
+
+    int deleteByIdList(List<String> list);
 }

@@ -54,5 +54,10 @@ public class PixUserServiceImpl implements PixUserService {
     public List<PixUser> selectAll(PixUser pixUser) {
         return pixUserMapper.selectAll(pixUser);
     }
+
+    @Override
+    public List<PixUser> selectPraise() {
+        return pixUserMapper.selectPraise();
+    }
 }
 

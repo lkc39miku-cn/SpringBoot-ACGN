@@ -61,4 +61,36 @@ public class PixUserController {
     public Result<String> insert(@RequestBody PixUser pixUser) {
         return CompareExecute.compare(pixUserServiceImpl.insert(pixUser), CompareExecute.ExecuteStatus.INSERT);
     }
+
+    /**
+     * 修改数据
+     * @param pixUser 实体对象
+     * @return 修改结果
+     */
+    @PutMapping("update")
+    @ApiOperation(value = "修改数据", notes = "修改数据")
+    public Result<String> update(@RequestBody PixUser pixUser) {
+        return CompareExecute.compare(pixUserServiceImpl.updateByPrimaryKeySelective(pixUser), CompareExecute.ExecuteStatus.UPDATE);
+    }
+
+    /**
+     * 删除数据
+     * @param id 主键
+     * @return 删除结果
+     */
+    @DeleteMapping("delete/{id}")
+    @ApiOperation(value = "删除数据", notes = "删除数据")
+    public Result<String> delete(@PathVariable(value = "id") String id) {
+        return CompareExecute.compare(pixUserServiceImpl.deleteByPrimaryKey(id), CompareExecute.ExecuteStatus.DELETE);
+    }
+
+    /**
+     * 最近获取赞最多的20名作者
+     * @return 最近获取赞最多的20名作者
+     */
+    @GetMapping("select/praise")
+    @ApiOperation(value = "最近获取赞最多的20名作者", notes = "最近获取赞最多的20名作者")
+    public Result<List<PixUser>> selectPraise() {
+        return Result.success(pixUserServiceImpl.selectPraise());
+    }
 }

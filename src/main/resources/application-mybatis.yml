@@ -1,5 +1,5 @@
 mybatis:
-  mapper-locations: classpath:mapper/pixivel/*.xml, classpath:mapper/user/*.xml
+  mapper-locations: classpath:mapper/pixivel/*.xml, classpath:mapper/user/*.xml, classpath:mapper/system/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
@@ -10,5 +10,5 @@ mybatis:
 
 pagehelper:
   helper-dialect: mysql
-  reasonable: true
   support-methods-arguments: true
+  reasonable: false

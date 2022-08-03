@@ -67,4 +67,47 @@ public class PixUserCollectController {
     public Result<String> insert(@RequestBody PixUserCollect pixUserCollect) {
         return CompareExecute.compare(pixUserCollectServiceImpl.insert(pixUserCollect), CompareExecute.ExecuteStatus.INSERT);
     }
+
+    /**
+     * 删除数据
+     * @param id 主键
+     * @return 删除结果
+     */
+    @DeleteMapping("delete/{id}")
+    @ApiOperation(value = "删除数据", notes = "删除数据")
+    public Result<String> delete(@PathVariable(value = "id") String id) {
+        return CompareExecute.compare(pixUserCollectServiceImpl.deleteByPrimaryKey(id), CompareExecute.ExecuteStatus.DELETE);
+    }
+
+    /**
+     * 更新数据
+     * @param pixUserCollect 实体对象
+     * @return 更新结果
+     */
+    @PutMapping("update")
+    @ApiOperation(value = "更新数据", notes = "更新数据")
+    public Result<String> update(@RequestBody PixUserCollect pixUserCollect) {
+        return CompareExecute.compare(pixUserCollectServiceImpl.updateByPrimaryKeySelective(pixUserCollect), CompareExecute.ExecuteStatus.UPDATE);
+    }
+
+    /**
+     * 收藏标签
+     * @return 标签
+     */
+    @GetMapping("select/tag")
+    @ApiOperation(value = "收藏标签", notes = "收藏标签")
+    public Result<List<String>> selectTag() {
+        return Result.success(pixUserCollectServiceImpl.selectTag());
+    }
+
+    /**
+     * 批量标签收藏
+     * @param pixUserCollect 实体对象
+     * @return 更新结果
+     */
+    @PutMapping("update/tag/batch")
+    @ApiOperation(value = "批量标签收藏", notes = "批量标签收藏")
+    public Result<String> updateTagBatch(@RequestBody PixUserCollect pixUserCollect) {
+        return CompareExecute.compare(pixUserCollectServiceImpl.updateTagBatch(pixUserCollect), CompareExecute.ExecuteStatus.UPDATE);
+    }
 }

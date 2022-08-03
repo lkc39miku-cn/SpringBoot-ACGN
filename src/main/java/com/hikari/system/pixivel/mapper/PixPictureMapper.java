@@ -26,4 +26,6 @@ public interface PixPictureMapper {
     int batchInsert(@Param("list") List<PixPicture> list);
 
     List<PixPicture> selectByCollectionId(String id);
+
+    int deleteByPictureCollectionId(String id);
 }

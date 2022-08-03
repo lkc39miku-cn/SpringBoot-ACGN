@@ -25,4 +25,8 @@ public interface PixUserCollectMapper {
     int batchInsert(@Param("list") List<PixUserCollect> list);
 
     List<PixUserCollect> selectList(PixUserCollect pixUserCollect);
+
+    List<String> selectTag(String id);
+
+    int updateTagBatch(@Param(value = "pixUserCollect") PixUserCollect pixUserCollect);
 }

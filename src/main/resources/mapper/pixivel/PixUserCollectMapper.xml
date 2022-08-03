@@ -30,7 +30,15 @@
       <if test="title != null and title != ''">
         and ppc.title like concat('%',#{title,jdbcType=VARCHAR},'%')
       </if>
+      <if test="collectTag != null and collectTag != ''">
+        and collect_tag like concat('%',#{collectTag,jdbcType=VARCHAR},'%')
+      </if>
     </where>
+  </select>
+  <select id="selectTag" resultType="java.lang.String">
+    select collect_tag
+    from spring_cloud.pix_user_collect
+    where pix_user_id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--@mbg.generated-->
@@ -101,6 +109,22 @@
       #{item.id,jdbcType=VARCHAR}
     </foreach>
   </update>
+  <update id="updateTagBatch">
+    update spring_cloud.pix_user_collect
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="pix_user_id = case" suffix="end,">
+        <foreach collection="pixUserCollect.collectIds" index="index" item="item">
+          <if test="pixUserCollect.collectTag != null and pixUserCollect.collectIds != ''">
+            when id = #{item,jdbcType=VARCHAR} then concat(collect_tag,',',#{pixUserCollect.collectTag,jdbcType=VARCHAR})
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="pixUserCollect.collectIds" item="item" open="(" separator=", ">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+  </update>
   <insert id="batchInsert" parameterType="map">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_user_collect
@@ -111,6 +135,4 @@
         #{item.collectTag,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
-
-
 </mapper>

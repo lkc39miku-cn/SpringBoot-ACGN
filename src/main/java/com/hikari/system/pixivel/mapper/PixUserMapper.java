@@ -26,4 +26,6 @@ public interface PixUserMapper {
     int batchInsert(@Param("list") List<PixUser> list);
 
     List<PixUser> selectAll(PixUser pixUser);
+
+    List<PixUser> selectPraise();
 }

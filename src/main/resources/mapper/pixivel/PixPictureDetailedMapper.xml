@@ -32,6 +32,13 @@
     delete from spring_cloud.pix_picture_detailed
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteByIdList">
+    delete from spring_cloud.pix_picture_detailed
+    where id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
   <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixPictureDetailed" useGeneratedKeys="true">
     <selectKey resultType="java.lang.String" keyColumn="id" order="AFTER">
       select last_insert_id()
@@ -166,4 +173,6 @@
         #{item.mappingId,jdbcType=VARCHAR})
     </foreach>
   </insert>
+
+
 </mapper>

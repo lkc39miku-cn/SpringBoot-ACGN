@@ -43,6 +43,12 @@ public class Result<T> {
                 .setMessage(HttpServletResponse.SC_INTERNAL_SERVER_ERROR.message());
     }
 
+    public static <T> Result<T> error(HttpServletResponse httpServletResponse) {
+        return new Result<T>()
+                .setCode(httpServletResponse.code())
+                .setMessage(httpServletResponse.message());
+    }
+
     public static <T> Result<T> error(T data) {
         return new Result<T>()
                 .setCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR.code())

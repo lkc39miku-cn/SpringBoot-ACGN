@@ -25,5 +25,7 @@ public interface PixUserService {
     int updateBatchSelective(List<PixUser> list);
 
     List<PixUser> selectAll(PixUser pixUser);
+
+    List<PixUser> selectPraise();
 }
 

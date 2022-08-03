@@ -9,6 +9,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
@@ -56,10 +57,16 @@ public class PixUserCollect implements Serializable {
     private LocalDateTime createTime;
 
     /**
-     * title
+     * 模糊搜索字段
      */
     @ApiModelProperty(value="模糊搜索字段")
     private String title;
+
+    /**
+     * 收藏图片数组
+     */
+    @ApiModelProperty(value="收藏图片数组")
+    private String[] collectIds;
 
     @Serial
     private static final long serialVersionUID = 1L;

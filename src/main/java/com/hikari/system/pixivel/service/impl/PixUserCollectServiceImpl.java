@@ -56,4 +56,14 @@ public class PixUserCollectServiceImpl implements PixUserCollectService{
     public PageInfo<PixUserCollect> selectList(PixUserCollect pixUserCollect) {
         return PageHelper.startPage(Page.page(), Page.pageSize()).doSelectPageInfo(() -> pixUserCollectMapper.selectList(pixUserCollect));
     }
+
+    @Override
+    public List<String> selectTag() {
+        return pixUserCollectMapper.selectTag("1");
+    }
+
+    @Override
+    public int updateTagBatch(PixUserCollect pixUserCollect) {
+        return pixUserCollectMapper.updateTagBatch(pixUserCollect);
+    }
 }

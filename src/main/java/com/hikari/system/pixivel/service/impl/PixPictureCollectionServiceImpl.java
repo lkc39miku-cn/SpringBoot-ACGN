@@ -53,13 +53,28 @@ public class PixPictureCollectionServiceImpl implements PixPictureCollectionServ
 
     @Override
     public int deleteByPrimaryKey(String id) {
-        return pixPictureCollectionMapper.deleteByPrimaryKey(id);
+        ServiceExecute.compare(pixPictureCollectionMapper.deleteByPrimaryKey(id), ServiceExecute.ExecuteStatus.DELETE);
+
+        List<String> list = pixPictureMapper.selectByCollectionId(id)
+                .stream()
+                .map(PixPicture::getPictureDetailedId)
+                .toList();
+
+        // 删除 图片 以及 图片详情
+        ServiceExecute.compare(pixPictureDetailedMapper.deleteByIdList(list), list.size(), ServiceExecute.ExecuteStatus.DELETE);
+        ServiceExecute.compare(pixPictureMapper.deleteByPictureCollectionId(id), list.size(), ServiceExecute.ExecuteStatus.DELETE);
+
+        return StatusKey.SUCCESS_INT;
     }
 
     @Override
     public int insert(PixPictureCollection record) {
         record.setCreateTime(LocalDateTime.now());
+
+        // 添加图片合集
         ServiceExecute.compare(pixPictureCollectionMapper.insert(record), ServiceExecute.ExecuteStatus.INSERT);
+
+        // 添加图片 以及 图片合集
         record.getMultipartFileList().forEach(v -> {
             String ppd_id = uploadImage(v, record.getType(), record.getMappingId());
             int i = 0;
@@ -143,7 +158,32 @@ public class PixPictureCollectionServiceImpl implements PixPictureCollectionServ
 
     @Override
     public int updateByPrimaryKeySelective(PixPictureCollection record) {
-        return pixPictureCollectionMapper.updateByPrimaryKeySelective(record);
+        // 更新图片集合
+        ServiceExecute.compare(pixPictureCollectionMapper.updateByPrimaryKeySelective(record), ServiceExecute.ExecuteStatus.UPDATE);
+
+        List<String> list = pixPictureMapper.selectByCollectionId(record.getId())
+                .stream()
+                .map(PixPicture::getPictureDetailedId)
+                .toList();
+
+        // 删除并重新添加 图片 以及 图片详情
+        ServiceExecute.compare(pixPictureDetailedMapper.deleteByIdList(list), list.size(), ServiceExecute.ExecuteStatus.DELETE);
+        ServiceExecute.compare(pixPictureMapper.deleteByPictureCollectionId(record.getId()), list.size(), ServiceExecute.ExecuteStatus.DELETE);
+
+        // 添加图片 以及 图片详情
+        record.getMultipartFileList().forEach(v -> {
+            String ppd_id = uploadImage(v, record.getType(), record.getMappingId());
+            int i = 0;
+            // 添加图片
+            PixPicture pixPicture = new PixPicture()
+                    .setSort(++i)
+                    .setPictureCollectionId(record.getId())
+                    .setPictureDetailedId(ppd_id);
+
+            ServiceExecute.compare(pixPictureMapper.insert(pixPicture), ServiceExecute.ExecuteStatus.INSERT);
+        });
+
+        return StatusKey.SUCCESS_INT;
     }
 
     @Override

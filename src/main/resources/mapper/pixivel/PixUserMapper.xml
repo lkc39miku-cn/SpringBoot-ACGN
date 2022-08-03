@@ -18,6 +18,10 @@
     <!--@mbg.generated-->
     id, nickname, avatar, background, description, website, user_id, create_time
   </sql>
+  <sql id="Base_Column_List_Rename">
+    <!--@mbg.generated-->
+    select pu.id, pu.nickname, pu.avatar, pu.background, pu.description, pu.website, pu.user_id, pu.create_time from spring_cloud.pix_user pu
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
@@ -147,5 +151,13 @@
         nickname like concat('%', #{nickname,jdbcType=VARCHAR}, '%')
       </if>
     </where>
+  </select>
+
+  <select id="selectPraise" resultMap="BaseResultMap">
+    <include refid="Base_Column_List_Rename" />
+    left join spring_cloud.pix_user_praise pup on pu.id = pup.pix_user_id
+    group by pu.id
+    order by pu.id desc
+    limit 20
   </select>
 </mapper>
