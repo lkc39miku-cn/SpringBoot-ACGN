@@ -30,4 +30,6 @@ public interface PixPictureCollectionService{
     List<PixPictureCollection> selectByPraise();
 
     List<PixPictureCollection> selectByIdList(List<String> idList);
+
+    List<PixPictureCollection> selectByAuthor(String authorId);
 }

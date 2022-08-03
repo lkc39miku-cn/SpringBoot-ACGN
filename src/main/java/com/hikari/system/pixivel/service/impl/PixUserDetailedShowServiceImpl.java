@@ -48,6 +48,10 @@ public class PixUserDetailedShowServiceImpl implements PixUserDetailedShowServic
         return pixUserDetailedShowMapper.batchInsert(list);
     }
 
+    @Override
+    public PixUserDetailedShow selectByAuthorId(String authorId) {
+        return pixUserDetailedShowMapper.selectByAuthorId(authorId);
+    }
 }
 
 

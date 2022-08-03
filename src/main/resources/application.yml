@@ -4,7 +4,7 @@ server:
 
 spring:
   profiles:
-    active: swagger, thread-pool, async, druid, file, mybatis
+    active: swagger, thread-pool, async, druid, file, mybatis, jwt
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

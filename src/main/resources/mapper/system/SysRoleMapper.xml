@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.system.mapper.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysRole">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.sys_role-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="role_key" jdbcType="VARCHAR" property="roleKey" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="menu_check_strictly" jdbcType="TINYINT" property="menuCheckStrictly" />
+    <result column="dept_check_strictly" jdbcType="TINYINT" property="deptCheckStrictly" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="create_staff_id" jdbcType="VARCHAR" property="createStaffId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <association property="createStaff" javaType="com.hikari.system.system.entity.SysStaff" column="create_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="updateStaff" javaType="com.hikari.system.system.entity.SysStaff" column="update_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, role_key, sort, menu_check_strictly, dept_check_strictly, `status`, delete_status, 
+    create_staff_id, create_time, update_staff_id, update_time, remark
+  </sql>
+  <sql id="Base_Column_List_Rename">
+    select sr.id, sr.name, sr.role_key, sr.sort, sr.menu_check_strictly, sr.dept_check_strictly, sr.status, sr.delete_status, sr.create_staff_id, sr.create_time, sr.update_staff_id, sr.update_time, sr.remark
+    from sys_role sr
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_role
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.sys_role
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.system.entity.SysRole">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_role (id, `name`, role_key, 
+      sort, menu_check_strictly, dept_check_strictly, 
+      `status`, delete_status, create_staff_id, 
+      create_time, update_staff_id, update_time, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{roleKey,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{menuCheckStrictly,jdbcType=TINYINT}, #{deptCheckStrictly,jdbcType=TINYINT}, 
+      #{status,jdbcType=INTEGER}, #{deleteStatus,jdbcType=INTEGER}, #{createStaffId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.system.entity.SysRole">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_role
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="roleKey != null">
+        role_key = #{roleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="menuCheckStrictly != null">
+        menu_check_strictly = #{menuCheckStrictly,jdbcType=TINYINT},
+      </if>
+      <if test="deptCheckStrictly != null">
+        dept_check_strictly = #{deptCheckStrictly,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createStaffId != null">
+        create_staff_id = #{createStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null">
+        update_staff_id = #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_role
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.name != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.name,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="role_key = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.roleKey != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.roleKey,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="sort = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.sort != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.sort,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="menu_check_strictly = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.menuCheckStrictly != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.menuCheckStrictly,jdbcType=TINYINT}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="dept_check_strictly = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.deptCheckStrictly != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.deptCheckStrictly,jdbcType=TINYINT}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.status,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="delete_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.deleteStatus != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.deleteStatus,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_staff_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createStaffId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createStaffId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_staff_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateStaffId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateStaffId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="remark = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.remark != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.remark,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_role
+    (id, `name`, role_key, sort, menu_check_strictly, dept_check_strictly, `status`, 
+      delete_status, create_staff_id, create_time, update_staff_id, update_time, remark
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.roleKey,jdbcType=VARCHAR}, 
+        #{item.sort,jdbcType=INTEGER}, #{item.menuCheckStrictly,jdbcType=TINYINT}, #{item.deptCheckStrictly,jdbcType=TINYINT}, 
+        #{item.status,jdbcType=INTEGER}, #{item.deleteStatus,jdbcType=INTEGER}, #{item.createStaffId,jdbcType=VARCHAR}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateStaffId,jdbcType=VARCHAR}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <select id="selectListByStaffId" resultMap="BaseResultMap">
+    <include refid="Base_Column_List_Rename" />
+    left join sys_staff_role ssr on sr.id = ssr.role_id
+    where ssr.staff_id = #{staffId,jdbcType=VARCHAR}
+  </select>
+</mapper>

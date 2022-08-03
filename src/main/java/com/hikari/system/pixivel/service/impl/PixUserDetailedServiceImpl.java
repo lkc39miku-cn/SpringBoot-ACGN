@@ -48,6 +48,10 @@ public class PixUserDetailedServiceImpl implements PixUserDetailedService {
         return pixUserDetailedMapper.batchInsert(list);
     }
 
+    @Override
+    public PixUserDetailed selectByAuthorId(String authorId) {
+        return pixUserDetailedMapper.selectByAuthorId(authorId);
+    }
 }
 
 

@@ -68,6 +68,12 @@ public class PixUser implements Serializable {
     private String userId;
 
     /**
+     * 外键 用户详情
+     */
+    @ApiModelProperty(value = "外键 用户详情")
+    private String userDetailedId;
+
+    /**
     * 创建时间
     */
     @ApiModelProperty(value="创建时间")
@@ -78,6 +84,12 @@ public class PixUser implements Serializable {
      */
     @ApiModelProperty(value="用户")
     private User user;
+
+    /**
+     * 用户详情
+     */
+    @ApiModelProperty(value = "用户详情")
+    private PixUserDetailed pixUserDetailed;
 
     @Serial
     private static final long serialVersionUID = 1L;

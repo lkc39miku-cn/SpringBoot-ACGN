@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.system.mapper.SysStaffRoleMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysStaffRole">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.sys_staff_role-->
+    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    staff_id, role_id
+  </sql>
+  <sql id="Base_Column_List_Rename">
+    select ssr.staff_id, ssr.role_id
+    from sys_staff_role ssr
+  </sql>
+  <insert id="insert" parameterType="com.hikari.system.system.entity.SysStaffRole">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_staff_role (staff_id, role_id)
+    values (#{staffId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_staff_role
+    (staff_id, role_id)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.staffId,jdbcType=VARCHAR}, #{item.roleId,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <delete id="deleteByStaffId">
+    delete from spring_cloud.sys_staff_role
+    where staff_id = #{staffId,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="batchInsertByRoleIds" resultType="int">
+    insert into spring_cloud.sys_staff_role (
+    <include refid="Base_Column_List"/>
+    )
+    values
+    <foreach collection="idList" item="item" separator=",">
+      (#{id,jdbcType=VARCHAR}, #{item,jdbcType=VARCHAR})
+    </foreach>
+  </select>
+</mapper>

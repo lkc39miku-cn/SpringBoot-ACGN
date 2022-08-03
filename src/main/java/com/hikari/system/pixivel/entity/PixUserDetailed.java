@@ -61,22 +61,10 @@ public class PixUserDetailed implements Serializable {
     private String professionId;
 
     /**
-     * 外键 pixivel用户
-     */
-    @ApiModelProperty(value = "外键 pixivel用户")
-    private String pixUserId;
-
-    /**
      * 外键 pixivel用户详情
      */
     @ApiModelProperty(value = "外键 pixivel用户详情")
     private String userDetailedShowId;
-
-    /**
-     * pixivel用户
-     */
-    @ApiModelProperty(value = "pixivel用户")
-    private PixUser pixUser;
 
     /**
      * pixivel用户详情

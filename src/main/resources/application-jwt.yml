@@ -1,0 +1,4 @@
+jwt:
+  header: Authorization
+  secret: 1as5d46sa85d468w46as3215a36w5
+  expireTime: 60

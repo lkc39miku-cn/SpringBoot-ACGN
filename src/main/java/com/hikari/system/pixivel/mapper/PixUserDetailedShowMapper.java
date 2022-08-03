@@ -24,4 +24,6 @@ public interface PixUserDetailedShowMapper {
     int updateBatchSelective(List<PixUserDetailedShow> list);
 
     int batchInsert(@Param("list") List<PixUserDetailedShow> list);
+
+    PixUserDetailedShow selectByAuthorId(String authorId);
 }

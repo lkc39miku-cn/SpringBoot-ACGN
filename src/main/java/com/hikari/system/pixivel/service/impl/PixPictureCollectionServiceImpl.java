@@ -216,5 +216,8 @@ public class PixPictureCollectionServiceImpl implements PixPictureCollectionServ
         return pixPictureCollectionMapper.selectByIdList(idList);
     }
 
-
+    @Override
+    public List<PixPictureCollection> selectByAuthor(String authorId) {
+        return pixPictureCollectionMapper.selectByAuthor(authorId);
+    }
 }

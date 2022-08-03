@@ -1,7 +1,7 @@
 package com.hikari.framework.interceptor;
 
 import com.hikari.commons.util.id.IdStrategy;
-import com.hikari.commons.util.id.MyIdStrategy;
+import com.hikari.commons.util.id.AutoIdStrategy;
 import com.hikari.framework.annotation.AutoGenerateId;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -16,11 +16,11 @@ import java.util.Properties;
  */
 @Intercepts({@Signature(
         type = Executor.class,
-        method = "update",
+        method = "insert",
         args = {MappedStatement.class, Object.class})})
-public class MyInterceptor implements Interceptor {
+public class AutoIdInterceptor implements Interceptor {
 
-    private final IdStrategy idStrategy = new MyIdStrategy();
+    private final IdStrategy idStrategy = new AutoIdStrategy();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

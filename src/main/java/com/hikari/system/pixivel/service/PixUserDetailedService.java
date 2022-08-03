@@ -23,6 +23,7 @@ public interface PixUserDetailedService {
 
     int batchInsert(List<PixUserDetailed> list);
 
+    PixUserDetailed selectByAuthorId(String authorId);
 }
 
 

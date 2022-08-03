@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.system.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysMenu">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.sys_menu-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="menu_order" jdbcType="INTEGER" property="menuOrder" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+    <result column="query" jdbcType="VARCHAR" property="query" />
+    <result column="is_frame" jdbcType="INTEGER" property="isFrame" />
+    <result column="is_cache" jdbcType="INTEGER" property="isCache" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="visible" jdbcType="INTEGER" property="visible" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="perms" jdbcType="VARCHAR" property="perms" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="create_staff_id" jdbcType="VARCHAR" property="createStaffId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <association property="createStaff" javaType="com.hikari.system.system.entity.SysStaff" column="create_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="updateStaff" javaType="com.hikari.system.system.entity.SysStaff" column="update_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, parent_id, menu_order, `path`, component, query, is_frame, is_cache, 
+    `type`, visible, `status`, perms, icon, create_staff_id, create_time, update_staff_id, 
+    update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_menu
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.sys_menu
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.system.entity.SysMenu">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_menu (id, `name`, parent_id, 
+      menu_order, `path`, component, 
+      query, is_frame, is_cache, 
+      `type`, visible, `status`, 
+      perms, icon, create_staff_id, 
+      create_time, update_staff_id, update_time, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, 
+      #{menuOrder,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, 
+      #{query,jdbcType=VARCHAR}, #{isFrame,jdbcType=INTEGER}, #{isCache,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{visible,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{perms,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{createStaffId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.system.entity.SysMenu">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_menu
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrder != null">
+        menu_order = #{menuOrder,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="query != null">
+        query = #{query,jdbcType=VARCHAR},
+      </if>
+      <if test="isFrame != null">
+        is_frame = #{isFrame,jdbcType=INTEGER},
+      </if>
+      <if test="isCache != null">
+        is_cache = #{isCache,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null">
+        visible = #{visible,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="perms != null">
+        perms = #{perms,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="createStaffId != null">
+        create_staff_id = #{createStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null">
+        update_staff_id = #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_menu
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.name != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.name,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="parent_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.parentId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.parentId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="menu_order = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.menuOrder != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.menuOrder,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`path` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.path != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.path,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="component = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.component != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.component,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="query = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.query != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.query,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="is_frame = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.isFrame != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.isFrame,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="is_cache = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.isCache != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.isCache,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.type != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.type,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="visible = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.visible != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.visible,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.status,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="perms = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.perms != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.perms,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="icon = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.icon != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.icon,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_staff_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createStaffId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createStaffId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_staff_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateStaffId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateStaffId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="remark = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.remark != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.remark,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_menu
+    (id, `name`, parent_id, menu_order, `path`, component, query, is_frame, is_cache, 
+      `type`, visible, `status`, perms, icon, create_staff_id, create_time, update_staff_id, 
+      update_time, remark)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.parentId,jdbcType=VARCHAR}, 
+        #{item.menuOrder,jdbcType=INTEGER}, #{item.path,jdbcType=VARCHAR}, #{item.component,jdbcType=VARCHAR}, 
+        #{item.query,jdbcType=VARCHAR}, #{item.isFrame,jdbcType=INTEGER}, #{item.isCache,jdbcType=INTEGER}, 
+        #{item.type,jdbcType=VARCHAR}, #{item.visible,jdbcType=INTEGER}, #{item.status,jdbcType=INTEGER}, 
+        #{item.perms,jdbcType=VARCHAR}, #{item.icon,jdbcType=VARCHAR}, #{item.createStaffId,jdbcType=VARCHAR}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateStaffId,jdbcType=VARCHAR}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_menu
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="path != null and path != ''">
+        and path like concat('%', #{path,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="component != null and component != ''">
+        and component like concat('%', #{component,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="isFrame != null">
+        and is_frame = #{isFrame,jdbcType=INTEGER}
+      </if>
+      <if test="isCache != null">
+        and is_cache = #{isCache,jdbcType=INTEGER}
+      </if>
+      <if test="type != null and type != ''">
+        and type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="visible != null">
+        and visible = #{visible,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="perms != null and perms != ''">
+        and perms like concat('%', #{perms,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <select id="checkRoleMenu" resultType="int">
+    select count(1)
+    from spring_cloud.sys_role_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectNotList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_menu
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="path != null and path != ''">
+        and path like concat('%', #{path,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="component != null and component != ''">
+        and component like concat('%', #{component,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="isFrame != null">
+        and is_frame = #{isFrame,jdbcType=INTEGER}
+      </if>
+      <if test="isCache != null">
+        and is_cache = #{isCache,jdbcType=INTEGER}
+      </if>
+      <if test="type != null and type != ''">
+        and type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="visible != null">
+        and visible = #{visible,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="perms != null and perms != ''">
+        and perms like concat('%', #{perms,jdbcType=VARCHAR}, '%')
+      </if>
+      and id != #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+
+  <select id="roleTree" resultType="java.lang.String">
+    select m.id
+    from sys_menu m
+    left join sys_role_menu rm on m.id = rm.menu_id
+    where rm.role_id = #{id,jdbcType=VARCHAR}
+    <if test="menuCheckStrictly">
+      and m.id not in (select m.parent_id
+      from sys_menu m
+      inner join sys_role_menu rm on m.id = rm.menu_id and rm.role_id = #{id})
+    </if>
+    order by m.parent_id, m.menu_order
+  </select>
+</mapper>

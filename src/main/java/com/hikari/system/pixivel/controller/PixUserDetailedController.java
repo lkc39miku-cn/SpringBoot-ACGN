@@ -1,5 +1,6 @@
 package com.hikari.system.pixivel.controller;
 
+import com.hikari.commons.result.Result;
 import com.hikari.system.pixivel.entity.PixUserDetailed;
 import com.hikari.system.pixivel.service.impl.PixUserDetailedServiceImpl;
 import io.swagger.annotations.Api;
@@ -31,8 +32,17 @@ public class PixUserDetailedController {
      */
     @GetMapping("select/{id}")
     @ApiOperation(value = "通过主键查询单条数据", notes = "通过主键查询单条数据")
-    public PixUserDetailed selectOne(@PathVariable(value = "id") String id) {
-        return pixUserDetailedServiceImpl.selectByPrimaryKey(id);
+    public Result<PixUserDetailed> selectOne(@PathVariable(value = "id") String id) {
+        return Result.success(pixUserDetailedServiceImpl.selectByPrimaryKey(id));
+    }
+
+    /**
+     * 根据作者id查询作者详情
+     */
+    @GetMapping("select/author/{authorId}")
+    @ApiOperation(value = "根据作者id查询作者详情", notes = "根据作者id查询作者详情")
+    public Result<PixUserDetailed> selectByAuthorId(@PathVariable(value = "authorId") String authorId) {
+        return Result.success(pixUserDetailedServiceImpl.selectByAuthorId(authorId));
     }
 
 }

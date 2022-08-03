@@ -17,6 +17,10 @@
     id, sex_show, country_show, birthday_year_show, birthday_other_show, profession_id_show, 
     collect_show
   </sql>
+  <sql id="Base_Column_List_Rename">
+    select puds.id, puds.sex_show, puds.country_show, puds.birthday_year_show, puds.birthday_other_show, puds.profession_id_show, puds.collect_show
+    from pix_user_detailed_show puds
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
@@ -128,4 +132,11 @@
         )
     </foreach>
   </insert>
+
+  <select id="selectByAuthorId" resultMap="BaseResultMap">
+    <include refid="Base_Column_List_Rename" />
+    left join pix_user_detailed pud on puds.id = pud.user_detailed_show_id
+    left join pix_user pu on pud.id = pu.user_detailed_id
+    where pu.id = #{authorId,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.system.mapper.SysDeptMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysDept">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.sys_dept-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="ancestors" jdbcType="VARCHAR" property="ancestors" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="dept_order" jdbcType="INTEGER" property="deptOrder" />
+    <result column="leader_id" jdbcType="VARCHAR" property="leaderId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="create_staff_id" jdbcType="VARCHAR" property="createStaffId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <association property="createStaff" javaType="com.hikari.system.system.entity.SysStaff" column="create_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="updateStaff" javaType="com.hikari.system.system.entity.SysStaff" column="update_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="leaderStaff" javaType="com.hikari.system.system.entity.SysStaff" column="leader_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, parent_id, ancestors, `name`, dept_order, leader_id, phone, email, `status`, 
+    delete_status, create_staff_id, create_time, update_staff_id, update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_dept
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.sys_dept
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.system.entity.SysDept">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_dept (id, parent_id, ancestors, 
+      `name`, dept_order, leader_id, 
+      phone, email, `status`, 
+      delete_status, create_staff_id, create_time, 
+      update_staff_id, update_time, remark
+      )
+    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{ancestors,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{deptOrder,jdbcType=INTEGER}, #{leaderId,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{deleteStatus,jdbcType=INTEGER}, #{createStaffId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.system.entity.SysDept">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_dept
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="ancestors != null">
+        ancestors = #{ancestors,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deptOrder != null">
+        dept_order = #{deptOrder,jdbcType=INTEGER},
+      </if>
+      <if test="leaderId != null">
+        leader_id = #{leaderId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createStaffId != null">
+        create_staff_id = #{createStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null">
+        update_staff_id = #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_dept
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="parent_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.parentId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.parentId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ancestors = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.ancestors != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.ancestors,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.name != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.name,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="dept_order = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.deptOrder != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.deptOrder,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="leader_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.leaderId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.leaderId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="phone = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.phone != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.phone,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="email = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.email != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.email,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.status,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="delete_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.deleteStatus != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.deleteStatus,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_staff_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createStaffId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createStaffId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_staff_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateStaffId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateStaffId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="remark = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.remark != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.remark,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_dept
+    (id, parent_id, ancestors, `name`, dept_order, leader_id, phone, email, `status`, 
+      delete_status, create_staff_id, create_time, update_staff_id, update_time, remark
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.parentId,jdbcType=VARCHAR}, #{item.ancestors,jdbcType=VARCHAR}, 
+        #{item.name,jdbcType=VARCHAR}, #{item.deptOrder,jdbcType=INTEGER}, #{item.leaderId,jdbcType=VARCHAR}, 
+        #{item.phone,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, 
+        #{item.deleteStatus,jdbcType=INTEGER}, #{item.createStaffId,jdbcType=VARCHAR}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateStaffId,jdbcType=VARCHAR}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_dept
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="phone != null and phone != ''">
+        and phone like concat('%', #{phone,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="email != null and email != ''">
+        and email like concat('%', #{email,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="deleteStatus != null">
+        and delete_status = #{deleteStatus,jdbcType=INTEGER}
+      </if>
+      <if test="remark != null and remark != ''">
+        and remark like concat('%', #{remark,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <select id="selectNotList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_dept
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="phone != null and phone != ''">
+        and phone like concat('%', #{phone,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="email != null and email != ''">
+        and email like concat('%', #{email,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="deleteStatus != null">
+        and delete_status = #{deleteStatus,jdbcType=INTEGER}
+      </if>
+      <if test="remark != null and remark != ''">
+        and remark like concat('%', #{remark,jdbcType=VARCHAR}, '%')
+      </if>
+      and id != #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+
+  <select id="checkExistStaffByDeptId" resultType="int">
+    select count(1)
+    from spring_cloud.sys_staff
+    where dept_id = #{deptId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="roleTree" resultType="java.lang.String">
+    select d.id
+    from sys_dept d
+    left join sys_role_dept rd on d.id = rd.dept_id
+    where rd.role_id = #{id,jdbcType=VARCHAR}
+    <if test="deptCheckStrictly">
+      and d.id not in (select d.parent_id
+      from sys_dept d
+      inner join sys_role_dept rd on d.id = rd.dept_id and rd.role_id = #{id})
+    </if>
+    order by d.parent_id, d.dept_order
+  </select>
+</mapper>

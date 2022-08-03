@@ -31,4 +31,6 @@ public interface PixPictureCollectionMapper {
     List<PixPictureCollection> selectByCollect();
 
     List<PixPictureCollection> selectByPraise();
+
+    List<PixPictureCollection> selectByAuthor(String authorId);
 }

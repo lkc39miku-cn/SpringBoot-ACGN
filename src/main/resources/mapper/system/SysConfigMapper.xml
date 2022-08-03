@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.system.system.mapper.SysConfigMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysConfig">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.sys_config-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="config_key" jdbcType="VARCHAR" property="configKey" />
+    <result column="config_value" jdbcType="VARCHAR" property="configValue" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="create_staff_id" jdbcType="VARCHAR" property="createStaffId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <association property="createStaff" javaType="com.hikari.system.system.entity.SysStaff" column="create_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="updateStaff" javaType="com.hikari.system.system.entity.SysStaff" column="update_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, config_key, config_value, `type`, create_staff_id, create_time, update_staff_id, 
+    update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_config
+    <where>
+      <if test="name != null and name != ''">
+        and sys_config.name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="configKey != null and configKey != ''">
+        and sys_config.config_key like concat('%', #{configKey,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="type != null and type != ''">
+        and sys_config.type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null and remark != ''">
+        and sys_config.remark like concat('%', #{remark,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.sys_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.system.system.entity.SysConfig">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_config (id, `name`, config_key, 
+      config_value, `type`, create_staff_id, 
+      create_time, update_staff_id, update_time, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{configKey,jdbcType=VARCHAR}, 
+      #{configValue,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{createStaffId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.system.entity.SysConfig">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_config
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="configKey != null">
+        config_key = #{configKey,jdbcType=VARCHAR},
+      </if>
+      <if test="configValue != null">
+        config_value = #{configValue,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createStaffId != null">
+        create_staff_id = #{createStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null">
+        update_staff_id = #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_config
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.name != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.name,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="config_key = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.configKey != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.configKey,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="config_value = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.configValue != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.configValue,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.type != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.type,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_staff_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createStaffId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createStaffId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_staff_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateStaffId != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateStaffId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.updateTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="remark = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.remark != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.remark,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_config
+    (id, `name`, config_key, config_value, `type`, create_staff_id, create_time, update_staff_id, 
+      update_time, remark)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.configKey,jdbcType=VARCHAR}, 
+        #{item.configValue,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR}, #{item.createStaffId,jdbcType=VARCHAR}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateStaffId,jdbcType=VARCHAR}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <delete id="deleteBatch">
+    delete from spring_cloud.sys_config
+    where id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+
+  <select id="selectNotList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_config
+    <where>
+      <if test="name != null and name != ''">
+        and sys_config.name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="configKey != null and configKey != ''">
+        and sys_config.config_key like concat('%', #{configKey,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="type != null and type != ''">
+        and sys_config.type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null and remark != ''">
+        and sys_config.remark like concat('%', #{remark,jdbcType=VARCHAR}, '%')
+      </if>
+      and sys_config.id != #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+</mapper>

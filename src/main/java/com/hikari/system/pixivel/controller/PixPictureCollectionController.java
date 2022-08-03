@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * (spring_cloud.pix_picture_collection)表控制层
@@ -41,7 +42,9 @@ public class PixPictureCollectionController {
     @ApiOperation(value = "通过主键查询单条数据", notes = "通过主键查询单条数据")
     public Result<PixPictureCollection> selectOne(@PathVariable(value = "id") String id) {
         PixPictureCollection pixPictureCollection = pixPictureCollectionServiceImpl.selectByPrimaryKey(id);
-        pixPictureCollection.setPixPictureList(pixPictureCollection.getPixPictureList().stream().sorted(Comparator.comparing(PixPicture::getSort)).toList());
+        if (Objects.nonNull(pixPictureCollection)) {
+            pixPictureCollection.setPixPictureList(pixPictureCollection.getPixPictureList().stream().sorted(Comparator.comparing(PixPicture::getSort)).toList());
+        }
         return Result.success(pixPictureCollection);
     }
 
@@ -111,6 +114,17 @@ public class PixPictureCollectionController {
     @ApiOperation(value = "删除数据", notes = "删除数据")
     public Result<String> delete(@PathVariable(value = "id") String id) {
         return CompareExecute.compare(pixPictureCollectionServiceImpl.deleteByPrimaryKey(id), CompareExecute.ExecuteStatus.DELETE);
+    }
+
+    /**
+     * 作者ID搜索其下作品
+     * @param authorId 作者ID
+     * @return 数据
+     */
+    @GetMapping("select/by/author/{authorId}")
+    @ApiOperation(value = "作者ID搜索其下作品", notes = "作者ID搜索其下作品")
+    public Result<List<PixPictureCollection>> selectByAuthor(@PathVariable(value = "authorId") String authorId) {
+        return Result.success(pixPictureCollectionServiceImpl.selectByAuthor(authorId));
     }
 
 }

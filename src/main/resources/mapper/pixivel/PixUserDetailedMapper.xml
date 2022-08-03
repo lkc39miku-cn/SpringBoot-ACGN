@@ -10,17 +10,20 @@
     <result column="birthday_year" jdbcType="TIMESTAMP" property="birthdayYear" />
     <result column="birthday_other" jdbcType="TIMESTAMP" property="birthdayOther" />
     <result column="profession_id" jdbcType="VARCHAR" property="professionId" />
-    <result column="pix_user_id" jdbcType="VARCHAR" property="pixUserId" />
     <result column="user_detailed_show_id" jdbcType="VARCHAR" property="userDetailedShowId" />
     <association property="pixUserDetailedShow" javaType="com.hikari.system.pixivel.entity.PixUserDetailedShow" column="user_detailed_show_id" select="com.hikari.system.pixivel.mapper.PixUserDetailedShowMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, sex, country_id, birthday_year, birthday_other, profession_id, pix_user_id, user_detailed_show_id
+    id, sex, country_id, birthday_year, birthday_other, profession_id, user_detailed_show_id
+  </sql>
+  <sql id="Base_Column_List_Rename">
+    select pud.id, pud.sex, pud.country_id, pud.birthday_year, pud.birthday_other, pud.profession_id, pud.user_detailed_show_id
+    from spring_cloud.pix_user_detailed pud
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
+    select
     <include refid="Base_Column_List" />
     from spring_cloud.pix_user_detailed
     where id = #{id,jdbcType=VARCHAR}
@@ -32,12 +35,12 @@
   </delete>
   <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUserDetailed">
     <!--@mbg.generated-->
-    insert into spring_cloud.pix_user_detailed (id, sex, country_id, 
-      birthday_year, birthday_other, profession_id, 
-      pix_user_id, user_detailed_show_id)
-    values (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{countryId,jdbcType=VARCHAR}, 
-      #{birthdayYear,jdbcType=TIMESTAMP}, #{birthdayOther,jdbcType=TIMESTAMP}, #{professionId,jdbcType=VARCHAR}, 
-      #{pixUserId,jdbcType=VARCHAR}, #{userDetailedShowId,jdbcType=VARCHAR})
+    insert into spring_cloud.pix_user_detailed (id, sex, country_id,
+    birthday_year, birthday_other, profession_id,
+    user_detailed_show_id)
+    values (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{countryId,jdbcType=VARCHAR},
+    #{birthdayYear,jdbcType=TIMESTAMP}, #{birthdayOther,jdbcType=TIMESTAMP}, #{professionId,jdbcType=VARCHAR},
+    #{userDetailedShowId,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUserDetailed">
     <!--@mbg.generated-->
@@ -57,9 +60,6 @@
       </if>
       <if test="professionId != null">
         profession_id = #{professionId,jdbcType=VARCHAR},
-      </if>
-      <if test="pixUserId != null">
-        pix_user_id = #{pixUserId,jdbcType=VARCHAR},
       </if>
       <if test="userDetailedShowId != null">
         user_detailed_show_id = #{userDetailedShowId,jdbcType=VARCHAR},
@@ -106,13 +106,6 @@
           </if>
         </foreach>
       </trim>
-      <trim prefix="pix_user_id = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          <if test="item.pixUserId != null">
-            when id = #{item.id,jdbcType=VARCHAR} then #{item.pixUserId,jdbcType=VARCHAR}
-          </if>
-        </foreach>
-      </trim>
       <trim prefix="user_detailed_show_id = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
           <if test="item.userDetailedShowId != null">
@@ -129,14 +122,20 @@
   <insert id="batchInsert" parameterType="map">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_user_detailed
-    (id, sex, country_id, birthday_year, birthday_other, profession_id, pix_user_id, 
-      user_detailed_show_id)
+    (id, sex, country_id, birthday_year, birthday_other, profession_id, user_detailed_show_id
+    )
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.id,jdbcType=VARCHAR}, #{item.sex,jdbcType=INTEGER}, #{item.countryId,jdbcType=VARCHAR}, 
-        #{item.birthdayYear,jdbcType=TIMESTAMP}, #{item.birthdayOther,jdbcType=TIMESTAMP}, 
-        #{item.professionId,jdbcType=VARCHAR}, #{item.pixUserId,jdbcType=VARCHAR}, #{item.userDetailedShowId,jdbcType=VARCHAR}
-        )
+      (#{item.id,jdbcType=VARCHAR}, #{item.sex,jdbcType=INTEGER}, #{item.countryId,jdbcType=VARCHAR},
+      #{item.birthdayYear,jdbcType=TIMESTAMP}, #{item.birthdayOther,jdbcType=TIMESTAMP},
+      #{item.professionId,jdbcType=VARCHAR}, #{item.userDetailedShowId,jdbcType=VARCHAR}
+      )
     </foreach>
   </insert>
+
+  <select id="selectByAuthorId" resultMap="BaseResultMap">
+    <include refid="Base_Column_List_Rename" />
+    left join spring_cloud.pix_user pu on pu.user_detailed_id = pud.id
+    where pu.id = #{authorId,jdbcType=VARCHAR}
+  </select>
 </mapper>
