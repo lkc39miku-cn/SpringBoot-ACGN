@@ -24,4 +24,6 @@ public interface PixUserPraiseService{
     int batchInsert(List<PixUserPraise> list);
 
     PixUserPraiseVo selectList();
+
+    boolean isPraise(String pictureId);
 }

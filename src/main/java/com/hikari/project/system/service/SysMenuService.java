@@ -41,4 +41,6 @@ public interface SysMenuService{
     List<SysMenu> roleTree(String roleId);
 
     Set<String> selectMenuPermsByStaffId(String id);
+
+    List<SysMenu> selectMenuTreeByStaffId(String id);
 }

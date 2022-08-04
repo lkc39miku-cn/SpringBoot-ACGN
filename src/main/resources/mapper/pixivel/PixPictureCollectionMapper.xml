@@ -40,7 +40,22 @@
     from spring_cloud.pix_picture_collection
     <where>
       <if test="title != null and title != ''">
-        title like concat('%', #{title,jdbcType=VARCHAR}, '%')
+        and title like concat('%', #{title,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="info != null and info != ''">
+        and info like concat('%', #{info,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="tagId != null and tagId != ''">
+        and tag_id like concat('%', #{tagId,jdbcType=VARCHAR}, '%')
+        <foreach collection="tagId.split(',')" item="item">
+          or tag_id like concat('%', #{item,jdbcType=VARCHAR}, '%')
+        </foreach>
+      </if>
+      <if test="pictureType != null">
+        and picture_type = #{pictureType,jdbcType=INTEGER}
+      </if>
+      <if test="pixUserId != null and pixUserId != ''">
+        and pix_user_id = #{pixUser.id,jdbcType=VARCHAR}
       </if>
     </where>
   </select>

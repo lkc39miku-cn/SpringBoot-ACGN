@@ -98,4 +98,18 @@
         #{item.image,jdbcType=VARCHAR})
     </foreach>
   </insert>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from spring_cloud.pix_tag
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="otherName != null and otherName != ''">
+        and other_name like concat('%', #{otherName,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+    </select>
 </mapper>

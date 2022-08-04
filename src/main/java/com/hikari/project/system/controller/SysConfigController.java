@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.hikari.commons.entity.Page;
 import com.hikari.commons.result.CompareExecute;
 import com.hikari.commons.result.Result;
+import com.hikari.commons.util.SecurityUtils;
 import com.hikari.project.system.entity.SysConfig;
 import com.hikari.project.system.service.impl.SysConfigServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -70,6 +71,7 @@ public class SysConfigController {
         if (sysConfigServiceImpl.checkConfigKey(sysConfig.getConfigKey())) {
             return Result.error("配置项已存在");
         }
+        sysConfig.setCreateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysConfigServiceImpl.insert(sysConfig), CompareExecute.ExecuteStatus.INSERT);
     }
 
@@ -113,6 +115,7 @@ public class SysConfigController {
         if (sysConfigServiceImpl.checkConfigKey(sysConfig.getConfigKey(), sysConfig.getId())) {
             return Result.error("配置项已存在");
         }
+        sysConfig.setUpdateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysConfigServiceImpl.updateByPrimaryKeySelective(sysConfig), CompareExecute.ExecuteStatus.UPDATE);
     }
 }

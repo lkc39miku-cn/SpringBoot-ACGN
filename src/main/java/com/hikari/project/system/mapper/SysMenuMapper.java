@@ -33,4 +33,6 @@ public interface SysMenuMapper {
     List<String> roleTree(@Param(value = "id") String id, @Param(value = "menuCheckStrictly") boolean menuCheckStrictly);
 
     List<String> selectMenuPermsByStaffId(String id);
+
+    List<SysMenu> selectMenuByStaffId(@Param(value = "sysMenu") SysMenu sysMenu, @Param(value = "id") String id);
 }

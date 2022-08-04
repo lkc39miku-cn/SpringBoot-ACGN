@@ -38,6 +38,7 @@ public class PixUserCollectController {
      */
     @Deprecated
     @GetMapping("select/{id}")
+    @ApiOperation(value = "通过主键查询单条数据", notes = "通过主键查询单条数据")
     public Result<PixUserCollect> selectOne(@PathVariable(value = "id") String id) {
         return Result.success(pixUserCollectServiceImpl.selectByPrimaryKey(id));
     }
@@ -48,6 +49,7 @@ public class PixUserCollectController {
      * @return 分页对象
      */
     @GetMapping("select")
+    @ApiOperation(value = "分页查询数据", notes = "分页查询数据")
     public Result<PixUserCollectVo> selectList(PixUserCollect pixUserCollect) {
         PageInfo<PixUserCollect> pageInfo = pixUserCollectServiceImpl.selectList(pixUserCollect);
 

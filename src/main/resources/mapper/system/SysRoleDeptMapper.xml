@@ -25,4 +25,15 @@
       (#{item.roleId,jdbcType=VARCHAR}, #{item.deptId,jdbcType=VARCHAR})
     </foreach>
   </insert>
+
+  <delete id="deleteByRoleId">
+    delete from spring_cloud.sys_role_dept where role_id = #{roleId,jdbcType=VARCHAR}
+    </delete>
+
+  <select id="batchInsertByRoleId" resultType="int">
+    insert into sys_role_dept(role_id, dept_id) values
+    <foreach item="item" index="index" collection="sysDeptIdList" open="" separator="," close="">
+      (#{id}, #{item})
+    </foreach>
+  </select>
 </mapper>

@@ -6,6 +6,7 @@ import com.hikari.commons.entity.Page;
 import com.hikari.commons.key.SysDeptKey;
 import com.hikari.commons.result.CompareExecute;
 import com.hikari.commons.result.Result;
+import com.hikari.commons.util.SecurityUtils;
 import com.hikari.project.system.entity.SysDept;
 import com.hikari.project.system.service.impl.SysDeptServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -71,6 +72,7 @@ public class SysDeptController {
         if (sysDeptServiceImpl.checkDeptNameUnique(sysDept.getName())) {
             return Result.error("新增部门'" + sysDept.getName() + "'失败，部门名称已存在");
         }
+        sysDept.setCreateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysDeptServiceImpl.insert(sysDept), CompareExecute.ExecuteStatus.INSERT);
     }
 
@@ -93,6 +95,7 @@ public class SysDeptController {
         if (SysDeptKey.STOP.equals(sysDept.getStatus()) && sysDeptServiceImpl.selectOnlineChildrenByParentId(sysDept.getId())) {
             return Result.error("修改部门'" + sysDept.getName() + "'失败，存在子部门在线状态");
         }
+        sysDept.setUpdateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysDeptServiceImpl.updateByPrimaryKeySelective(sysDept), CompareExecute.ExecuteStatus.UPDATE);
     }
 

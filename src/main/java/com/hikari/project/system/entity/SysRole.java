@@ -1,13 +1,16 @@
 package com.hikari.project.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hikari.commons.key.SysRoleKey;
 import com.hikari.framework.annotation.AutoGenerateId;
+import com.hikari.framework.annotation.IdAnnotation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -27,6 +30,7 @@ public class SysRole implements Serializable {
     /**
      * 主键 雪花
      */
+    @IdAnnotation
     @ApiModelProperty(value = "主键 雪花")
     private String id;
 
@@ -113,6 +117,21 @@ public class SysRole implements Serializable {
      */
     @ApiModelProperty(value = "更新人")
     private SysStaff updateStaff;
+
+
+    /**
+     * 修改部门集合
+     */
+    @ApiModelProperty(value = "修改部门集合")
+    private List<String> sysDeptIdList;
+
+    public boolean isAdmin() {
+        return isAdmin(this.id);
+    }
+
+    public static boolean isAdmin(String id) {
+        return SysRoleKey.ADMIN.equals(id);
+    }
 
     @Serial
     private static final long serialVersionUID = 1L;

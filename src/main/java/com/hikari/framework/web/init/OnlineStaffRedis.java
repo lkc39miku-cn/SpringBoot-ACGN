@@ -18,6 +18,11 @@ public class OnlineStaffRedis {
     @Resource
     private RedisCache redisCache;
 
+    /**
+     * 在线人员缓存
+     * @PostConstruct 初始化方法
+     * @author lkc39miku_cn
+     */
     @PostConstruct
     public void onlineStaffRedis() {
         if (Objects.nonNull(redisCache.getCacheObject(CacheKey.ONLINE_STAFF_KEY))) {

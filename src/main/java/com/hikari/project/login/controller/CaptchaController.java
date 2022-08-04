@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -52,10 +53,9 @@ public class CaptchaController {
     @GetMapping("/captcha/image")
     public Result<Map<String, Object>> getCode(HttpServletResponse response) throws IOException {
         Map<String, Object> map = new HashMap<>(3);
-//        boolean captchaOnOff = configService.selectCaptchaOnOff();
-        boolean captchaOnOff = true;
+        boolean captchaOnOff = Objects.isNull(sysConfigServiceImpl.selectCaptchaOnOff());
         map.put("captchaOnOff", captchaOnOff);
-        if (!captchaOnOff) {
+        if (captchaOnOff) {
             return Result.success(map);
         }
 

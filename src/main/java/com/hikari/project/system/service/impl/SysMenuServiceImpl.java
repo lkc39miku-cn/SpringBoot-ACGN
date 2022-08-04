@@ -3,6 +3,7 @@ package com.hikari.project.system.service.impl;
 import com.hikari.commons.key.NumberKey;
 import com.hikari.commons.key.SysMenuKey;
 import com.hikari.project.system.entity.SysRole;
+import com.hikari.project.system.entity.SysStaff;
 import com.hikari.project.system.mapper.SysRoleMapper;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -160,5 +161,25 @@ public class SysMenuServiceImpl implements SysMenuService{
         Set<String> set = new HashSet<>(10);
         menuList.stream().filter(Objects::nonNull).forEach(v -> set.addAll(Arrays.asList(v.trim().split(","))));
         return set;
+    }
+
+    @Override
+    public List<SysMenu> selectMenuTreeByStaffId(String id) {
+        List<SysMenu> list = new ArrayList<>();
+        if (SysStaff.isAdmin(id)) {
+            list.addAll(selectList(new SysMenu().setVisible(SysMenuKey.VISIBLE_SHOW).setStatus(SysMenuKey.ONLINE)
+                    .setType(SysMenuKey.IS_C + SysMenuKey.IS_M)));
+        } else {
+            list.addAll(sysMenuMapper.selectMenuByStaffId(new SysMenu().setVisible(SysMenuKey.VISIBLE_SHOW).setStatus(SysMenuKey.ONLINE)
+                    .setType(SysMenuKey.IS_M + SysMenuKey.IS_C), id));
+        }
+
+        List<SysMenu> sysMenuList = new ArrayList<>();
+        list.forEach(v -> {
+            if (v.getParentId().equals("0")) {
+                sysMenuList.add(v);
+            }
+        });
+        return convertTree(sysMenuList, sysMenuList.stream().filter(v -> !v.getParentId().equals("0")).toList());
     }
 }

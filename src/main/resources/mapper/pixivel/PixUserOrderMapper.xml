@@ -138,4 +138,25 @@
         #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pix_user_order
+    <where>
+      <if test="orderNumber != null and orderNumber != ''">
+        and order_number like concat('%',#{orderNumber,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="context != null and context != ''">
+        and context like concat('%',#{context,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="pixUserId != null and pixUserId != ''">
+        and pix_user_id = #{pixUser.id,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by create_time desc
+  </select>
 </mapper>

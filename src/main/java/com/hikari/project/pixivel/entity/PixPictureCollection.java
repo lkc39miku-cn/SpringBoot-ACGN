@@ -2,6 +2,7 @@ package com.hikari.project.pixivel.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hikari.framework.annotation.AutoGenerateId;
+import com.hikari.framework.annotation.IdAnnotation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -28,6 +29,7 @@ public class PixPictureCollection implements Serializable {
     /**
     * 主键 雪花
     */
+    @IdAnnotation
     @ApiModelProperty(value="主键 雪花")
     private String id;
 

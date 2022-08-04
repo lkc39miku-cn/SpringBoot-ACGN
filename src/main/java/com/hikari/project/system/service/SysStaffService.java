@@ -44,4 +44,8 @@ public interface SysStaffService{
     int updateRole(String id, List<String> roleIds);
 
     boolean registerStaff(SysStaff staff);
+
+    void checkStaffAllowed(SysStaff sysStaff);
+
+    SysStaff selectStaffByUsername(String username);
 }

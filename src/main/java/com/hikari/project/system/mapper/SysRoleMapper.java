@@ -2,6 +2,8 @@ package com.hikari.project.system.mapper;
 
 import com.hikari.project.system.entity.SysRole;
 import java.util.List;
+
+import com.hikari.project.system.entity.SysStaffRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +30,12 @@ public interface SysRoleMapper {
     List<SysRole> selectListByStaffId(String id);
 
     List<SysRole> selectRolePermissionByStaffId(String id);
+
+    List<SysRole> selectList(SysRole sysRole);
+
+    List<SysRole> selectNotList(SysRole sysRole);
+
+    int deleteBySelect(SysStaffRole sysStaffRole);
+
+    int deleteBySelectBatch(@Param(value = "roleId") String roleId, @Param(value = "staffIdList") List<String> staffIdList);
 }

@@ -23,4 +23,6 @@ public interface PixUserOrderMapper {
     int updateBatchSelective(List<PixUserOrder> list);
 
     int batchInsert(@Param("list") List<PixUserOrder> list);
+
+    List<PixUserOrder> selectList(PixUserOrder pixUserOrder);
 }

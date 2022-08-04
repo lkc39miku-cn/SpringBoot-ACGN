@@ -89,4 +89,18 @@
         #{item.createTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from pix_user_praise
+    <where>
+      <if test="pictureCollectionId != null and pictureCollectionId != ''">
+        and picture_collection_id = #{pictureCollectionId,jdbcType=VARCHAR}
+      </if>
+      <if test="pixUserId != null and pixUserId != ''">
+        and pix_user_id = #{pixUserId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
 </mapper>

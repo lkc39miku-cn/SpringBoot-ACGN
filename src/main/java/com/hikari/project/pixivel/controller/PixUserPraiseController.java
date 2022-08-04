@@ -39,11 +39,28 @@ public class PixUserPraiseController {
         return Result.success(pixUserPraiseServiceImpl.selectByPrimaryKey(id));
     }
 
+    /**
+     * 查询数据
+     * @return 数据
+     */
     @GetMapping("select")
     @ApiOperation(value = "查询数据", notes = "查询数据")
     public Result<PixUserPraiseVo> selectList() {
         return Result.success(pixUserPraiseServiceImpl.selectList());
     }
+
+    /**
+     * 是否点赞
+     * @param pictureId id
+     * @return 结果
+     */
+    @GetMapping("is/praise")
+    @ApiOperation(value = "是否点赞", notes = "是否点赞")
+    public Result<Boolean> isPraise(@RequestParam(value = "pictureId") String pictureId) {
+        return Result.success(pixUserPraiseServiceImpl.isPraise(pictureId));
+    }
+
+
 
     /**
      * 添加数据

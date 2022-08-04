@@ -22,4 +22,5 @@ public interface PixUserOrderService{
 
     int batchInsert(List<PixUserOrder> list);
 
+    List<PixUserOrder> selectList(PixUserOrder pixUserOrder);
 }

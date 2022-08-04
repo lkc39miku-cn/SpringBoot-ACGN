@@ -7,6 +7,7 @@ import com.hikari.commons.key.SysMenuKey;
 import com.hikari.commons.result.CompareExecute;
 import com.hikari.commons.result.Result;
 import com.hikari.commons.util.IpUtils;
+import com.hikari.commons.util.SecurityUtils;
 import com.hikari.project.system.entity.SysMenu;
 import com.hikari.project.system.service.impl.SysMenuServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -72,6 +73,7 @@ public class SysMenuController {
         if (SysMenuKey.IS_FRAME.equals(sysMenu.getIsFrame()) && !IpUtils.isHttp(sysMenu.getPath())) {
             return Result.error("非http协议的链接必须是http或https开头");
         }
+        sysMenu.setCreateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysMenuServiceImpl.insert(sysMenu), CompareExecute.ExecuteStatus.INSERT);
     }
 
@@ -111,6 +113,7 @@ public class SysMenuController {
         if (sysMenu.getParentId().equals(sysMenu.getId())) {
             return Result.error("上级菜单不能为自身");
         }
+        sysMenu.setUpdateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysMenuServiceImpl.updateByPrimaryKeySelective(sysMenu), CompareExecute.ExecuteStatus.UPDATE);
     }
 

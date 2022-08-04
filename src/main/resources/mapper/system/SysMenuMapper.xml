@@ -298,6 +298,9 @@
       </if>
       <if test="type != null and type != ''">
         and type = #{type,jdbcType=VARCHAR}
+        <foreach collection="type.split(',')" item="item">
+          or type = #{item,jdbcType=VARCHAR}
+        </foreach>
       </if>
       <if test="visible != null">
         and visible = #{visible,jdbcType=INTEGER}
@@ -375,4 +378,15 @@
     left join sys_role sr on sr.id = ssr.role_id
     where sm.status = 0 and sr.status = 0 and ssr.staff_id = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectMenuByStaffId" resultMap="BaseResultMap">
+    select distinct m.id, m.parent_id, m.name, m.path, m.component, m.`query`, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_frame, m.is_cache, m.type, m.icon, m.menu_order, m.create_time
+    from sys_menu m
+    left join sys_role_menu srm on m.id = srm.menu_id
+    left join sys_staff_role ssr on srm.role_id = ssr.role_id
+    left join sys_role sr on ssr.role_id = sr.id
+    left join sys_staff ss on ssr.staff_id = ss.id
+    where ss.id = #{id} and m.type in ('M', 'C') and m.status = 0  AND sr.status = 0
+    order by m.parent_id, m.menu_order
+    </select>
 </mapper>

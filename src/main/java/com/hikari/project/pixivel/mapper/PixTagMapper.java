@@ -25,4 +25,6 @@ public interface PixTagMapper {
     int updateBatchSelective(List<PixTag> list);
 
     int batchInsert(@Param("list") List<PixTag> list);
+
+    List<PixTag> selectList(PixTag pixTag);
 }

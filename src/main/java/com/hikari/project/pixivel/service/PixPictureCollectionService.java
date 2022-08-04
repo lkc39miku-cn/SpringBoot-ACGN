@@ -31,4 +31,6 @@ public interface PixPictureCollectionService{
     List<PixPictureCollection> selectByIdList(List<String> idList);
 
     List<PixPictureCollection> selectByAuthor(String authorId);
+
+    int refreshPraise(String id);
 }

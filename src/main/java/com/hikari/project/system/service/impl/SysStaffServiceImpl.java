@@ -4,10 +4,13 @@ import com.hikari.commons.key.NumberKey;
 import com.hikari.commons.key.StatusKey;
 import com.hikari.commons.key.SysStaffKey;
 import com.hikari.commons.result.ServiceExecute;
+import com.hikari.commons.util.SecurityUtils;
+import com.hikari.framework.exception.service.ServiceException;
 import com.hikari.project.system.entity.vo.SysStaffVo;
 import com.hikari.project.system.mapper.SysPostMapper;
 import com.hikari.project.system.mapper.SysRoleMapper;
 import com.hikari.project.system.mapper.SysStaffRoleMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.hikari.project.system.mapper.SysStaffMapper;
@@ -40,7 +43,8 @@ public class SysStaffServiceImpl implements SysStaffService{
     public int deleteByPrimaryKey(String id) {
         return sysStaffMapper.updateByPrimaryKeySelective(new SysStaff()
                 .setId(id)
-                .setDeleteStatus(SysStaffKey.DELETE_YES));
+                .setDeleteStatus(SysStaffKey.DELETE_YES)
+                .setUpdateStaffId(SecurityUtils.getStaffId()));
     }
 
     @Override
@@ -135,5 +139,17 @@ public class SysStaffServiceImpl implements SysStaffService{
     @Override
     public boolean registerStaff(SysStaff staff) {
         return sysStaffMapper.insert(staff) > NumberKey.ZERO;
+    }
+
+    @Override
+    public void checkStaffAllowed(SysStaff sysStaff) {
+        if (StringUtils.isNotEmpty(sysStaff.getId()) && sysStaff.isAdmin()) {
+            throw new ServiceException("", "不允许操作超级管理员用户");
+        }
+    }
+
+    @Override
+    public SysStaff selectStaffByUsername(String username) {
+        return selectList(new SysStaff().setUsername(username)).get(NumberKey.ZERO);
     }
 }

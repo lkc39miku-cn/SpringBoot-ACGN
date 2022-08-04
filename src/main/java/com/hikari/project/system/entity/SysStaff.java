@@ -3,6 +3,7 @@ package com.hikari.project.system.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hikari.commons.key.SysStaffKey;
 import com.hikari.framework.annotation.AutoGenerateId;
+import com.hikari.framework.annotation.IdAnnotation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -28,6 +29,7 @@ public class SysStaff implements Serializable {
     /**
     * 主键雪花
     */
+    @IdAnnotation
     @ApiModelProperty(value="主键雪花")
     private String id;
 
@@ -156,6 +158,12 @@ public class SysStaff implements Serializable {
      */
     @ApiModelProperty(value = "角色列表")
     private List<SysRole> sysRoleList;
+
+    /**
+     * roleId
+     */
+    @ApiModelProperty(value = "角色Id查询")
+    private String roleId;
 
     @Serial
     private static final long serialVersionUID = 1L;

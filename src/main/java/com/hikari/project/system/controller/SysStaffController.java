@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.hikari.commons.entity.Page;
 import com.hikari.commons.result.CompareExecute;
 import com.hikari.commons.result.Result;
+import com.hikari.commons.util.SecurityUtils;
 import com.hikari.project.system.entity.SysStaff;
 import com.hikari.project.system.entity.vo.SysStaffVo;
 import com.hikari.project.system.service.impl.SysStaffServiceImpl;
@@ -74,6 +75,7 @@ public class SysStaffController {
         if (sysStaffServiceImpl.checkStaffEmail(sysStaff.getEmail())) {
             return Result.error("邮箱已存在");
         }
+        sysStaff.setCreateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysStaffServiceImpl.insert(sysStaff), CompareExecute.ExecuteStatus.INSERT);
     }
 
@@ -86,6 +88,7 @@ public class SysStaffController {
     @ApiOperation(value = "修改数据", notes = "修改数据")
     @PreAuthorize("@permissionCheck.hasPermissions('system:staff:edit')")
     public Result<String> update(SysStaff sysStaff) {
+        sysStaffServiceImpl.checkStaffAllowed(sysStaff);
         if (sysStaffServiceImpl.checkStaffUsername(sysStaff.getUsername(), sysStaff.getId())) {
             return Result.error("用户名已存在");
         }
@@ -95,6 +98,7 @@ public class SysStaffController {
         if (sysStaffServiceImpl.checkStaffEmail(sysStaff.getEmail(), sysStaff.getId())) {
             return Result.error("邮箱已存在");
         }
+        sysStaff.setUpdateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysStaffServiceImpl.updateByPrimaryKeySelective(sysStaff), CompareExecute.ExecuteStatus.UPDATE);
     }
 
@@ -107,6 +111,7 @@ public class SysStaffController {
     @ApiOperation(value = "删除数据", notes = "删除数据")
     @PreAuthorize("@permissionCheck.hasPermissions('system:staff:delete')")
     public Result<String> delete(@PathVariable(value = "id") String id) {
+        sysStaffServiceImpl.checkStaffAllowed(new SysStaff().setId(id));
         return CompareExecute.compare(sysStaffServiceImpl.deleteByPrimaryKey(id), CompareExecute.ExecuteStatus.DELETE);
     }
 
@@ -119,6 +124,8 @@ public class SysStaffController {
     @ApiOperation(value = "修改密码", notes = "修改密码")
     @PreAuthorize("@permissionCheck.hasPermissions('system:staff:edit')")
     public Result<String> updatePassword(SysStaff sysStaff) {
+        sysStaffServiceImpl.checkStaffAllowed(sysStaff);
+        sysStaff.setPassword(SecurityUtils.encryptPassword(sysStaff.getPassword()));
         return CompareExecute.compare(sysStaffServiceImpl.updateByPrimaryKeySelective(new SysStaff()
                 .setId(sysStaff.getId())
                 .setPassword(sysStaff.getPassword())
@@ -134,6 +141,7 @@ public class SysStaffController {
     @ApiOperation(value = "状态修改", notes = "状态修改")
     @PreAuthorize("@permissionCheck.hasPermissions('system:staff:edit')")
     public Result<String> updateStatus(SysStaff sysStaff) {
+        sysStaffServiceImpl.checkStaffAllowed(sysStaff);
         return CompareExecute.compare(sysStaffServiceImpl.updateByPrimaryKeySelective(new SysStaff()
                 .setId(sysStaff.getId())
                 .setStatus(sysStaff.getStatus())

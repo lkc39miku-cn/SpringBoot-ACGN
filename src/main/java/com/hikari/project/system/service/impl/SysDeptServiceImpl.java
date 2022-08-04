@@ -2,6 +2,7 @@ package com.hikari.project.system.service.impl;
 
 import com.hikari.commons.key.NumberKey;
 import com.hikari.commons.key.SysDeptKey;
+import com.hikari.commons.util.SecurityUtils;
 import com.hikari.project.system.entity.SysRole;
 import com.hikari.project.system.mapper.SysRoleMapper;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,8 @@ public class SysDeptServiceImpl implements SysDeptService{
         return sysDeptMapper.updateByPrimaryKeySelective(new SysDept()
                 .setId(id)
                 .setDeleteStatus(SysDeptKey.DELETE_YES)
-                .setUpdateTime(LocalDateTime.now()));
+                .setUpdateTime(LocalDateTime.now())
+                .setUpdateStaffId(SecurityUtils.getStaffId()));
     }
 
     @Override

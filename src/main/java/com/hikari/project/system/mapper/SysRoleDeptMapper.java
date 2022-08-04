@@ -15,4 +15,9 @@ public interface SysRoleDeptMapper {
     int insert(SysRoleDept record);
 
     int batchInsert(@Param("list") List<SysRoleDept> list);
+
+    int deleteByRoleId(String id);
+
+
+    int batchInsertByRoleId(@Param(value = "sysDeptIdList") List<String> sysDeptIdList, @Param(value = "id") String id);
 }

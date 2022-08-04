@@ -222,4 +222,59 @@
            left join sys_dept sd on ss.dept_id = sd.id
     WHERE sr.delete_status = 0 and ssr.staff_id = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_role
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="roleKey != null and roleKey != ''">
+        and role_key like concat('%', #{roleKey,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="deleteStatus != null">
+        and delete_status = #{deleteStatus,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectNotList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_role
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="roleKey != null and roleKey != ''">
+        and role_key like concat('%', #{roleKey,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="deleteStatus != null">
+        and delete_status = #{deleteStatus,jdbcType=INTEGER}
+      </if>
+      and id != #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+
+  <delete id="deleteBySelect">
+    delete from spring_cloud.sys_staff_role
+    where staff_id = #{staffId,jdbcType=VARCHAR} and role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteBySelectBatch">
+    delete from spring_cloud.sys_staff_role
+    where role_id = #{roleId,jdbcType=VARCHAR} and
+    staff_id in
+    <foreach collection="staffIdList" item="itme" open="(" separator="," close=")">
+        #{itme,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
 </mapper>

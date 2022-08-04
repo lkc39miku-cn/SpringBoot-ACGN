@@ -2,6 +2,7 @@ package com.hikari.project.pixivel.service.impl;
 
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 import com.hikari.project.pixivel.entity.PixUserOrder;
 import com.hikari.project.pixivel.mapper.PixUserOrderMapper;
@@ -24,6 +25,7 @@ public class PixUserOrderServiceImpl implements PixUserOrderService{
 
     @Override
     public int insert(PixUserOrder record) {
+        record.setCreateTime(LocalDateTime.now());
         return pixUserOrderMapper.insert(record);
     }
 
@@ -47,4 +49,8 @@ public class PixUserOrderServiceImpl implements PixUserOrderService{
         return pixUserOrderMapper.batchInsert(list);
     }
 
+    @Override
+    public List<PixUserOrder> selectList(PixUserOrder pixUserOrder) {
+        return pixUserOrderMapper.selectList(pixUserOrder);
+    }
 }

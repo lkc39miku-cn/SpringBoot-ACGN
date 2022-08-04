@@ -325,4 +325,42 @@
       and id != #{id,jdbcType=VARCHAR}
     </where>
   </select>
+
+  <select id="selectAssigned" resultMap="BaseResultMap">
+    select distinct ss.id, ss.dept_id, ss.username, ss.nickname, ss.email, ss.phone, ss.status, ss.create_time
+    from sys_staff ss
+    left join sys_dept sd on ss.dept_id = sd.id
+    left join sys_staff_role ssr on ss.id = ssr.staff_id
+    left join sys_role sr on sr.id = ssr.role_id
+    where ss.delete_status = 0 and sr.id = #{roleId,jdbcType=VARCHAR}
+    <if test="username != null and username != ''">
+      AND ss.username like concat('%', #{username,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="phone != null and phone != ''">
+      AND ss.phone like concat('%', #{phone,jdbcType=VARCHAR}, '%')
+    </if>
+    </select>
+
+  <select id="selectUnAssigned" resultMap="BaseResultMap">
+    select distinct ss.id, ss.dept_id, ss.username, ss.nickname, ss.email, ss.phone, ss.status, ss.create_time
+    from sys_staff ss
+    left join sys_dept sd on ss.dept_id = sd.id
+    left join sys_staff_role ssr on ss.id = ssr.staff_id
+    left join sys_role sr on sr.id = ssr.role_id
+    where ss.delete_status = 0 and (sr.id != #{roleId,jdbcType=VARCHAR} or sr.id is null)
+    and ss.id not in (select ss.id from sys_staff s inner join sys_staff_role sr on ss.id = ssr.staff_id and ssr.role_id = #{roleId,jdbcType=VARCHAR})
+    <if test="username != null and username != ''">
+      AND ss.username like concat('%', #{username,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="phone != null and phone != ''">
+      AND ss.phone like concat('%', #{phone,jdbcType=VARCHAR}, '%')
+    </if>
+  </select>
+
+  <insert id="insertAuthStaffAll">
+    insert into sys_staff_role(staff_id, role_id) values
+    <foreach item="item" index="index" collection="staffIdList" open="" separator="," close="">
+      (#{item}, #{roleId})
+    </foreach>
+  </insert>
 </mapper>

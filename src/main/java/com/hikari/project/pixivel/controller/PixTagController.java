@@ -1,5 +1,8 @@
 package com.hikari.project.pixivel.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.hikari.commons.entity.Page;
 import com.hikari.commons.result.CompareExecute;
 import com.hikari.commons.result.Result;
 import com.hikari.project.pixivel.entity.PixTag;
@@ -9,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (spring_cloud.pix_tag)表控制层
@@ -35,6 +39,28 @@ public class PixTagController {
     @ApiOperation(value = "通过主键查询单条数据", notes = "通过主键查询单条数据")
     public Result<PixTag> selectOne(@PathVariable(value = "id") String id) {
         return Result.success(pixTagServiceImpl.selectByPrimaryKey(id));
+    }
+
+    /**
+     * 分页查询数据
+     * @param pixTag 实体对象
+     * @return 全部数据
+     */
+    @GetMapping("select")
+    @ApiOperation(value = "分页查询数据", notes = "分页查询数据")
+    public Result<List<PixTag>> selectList(PixTag pixTag) {
+        PageInfo<PixTag> pageInfo = PageHelper.startPage(Page.page(), Page.pageSize()).doSelectPageInfo(() -> pixTagServiceImpl.selectList(pixTag));
+        return Result.success(pageInfo.getList(), pageInfo.getTotal());
+    }
+
+    /**
+     * 查询所有数据
+     * @return 全部数据
+     */
+    @GetMapping("selectAll")
+    @ApiOperation(value = "查询所有数据", notes = "查询所有数据")
+    public Result<List<PixTag>> selectAll() {
+        return Result.success(pixTagServiceImpl.selectList(null));
     }
 
     /**

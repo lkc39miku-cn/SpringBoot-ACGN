@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.hikari.commons.entity.Page;
 import com.hikari.commons.result.CompareExecute;
 import com.hikari.commons.result.Result;
+import com.hikari.commons.util.SecurityUtils;
 import com.hikari.project.system.entity.SysPost;
 import com.hikari.project.system.service.impl.SysPostServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -69,6 +70,7 @@ public class SysPostController {
         if (sysPostServiceImpl.checkPostCode(sysPost.getCode())) {
             return Result.error("岗位编码已存在");
         }
+        sysPost.setCreateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysPostServiceImpl.insert(sysPost), CompareExecute.ExecuteStatus.INSERT);
     }
 
@@ -102,6 +104,7 @@ public class SysPostController {
         if (sysPostServiceImpl.checkPostCode(sysPost.getCode(), sysPost.getId())) {
             return Result.error("岗位编码已存在");
         }
+        sysPost.setUpdateStaffId(SecurityUtils.getStaffId());
         return CompareExecute.compare(sysPostServiceImpl.updateByPrimaryKeySelective(sysPost), CompareExecute.ExecuteStatus.UPDATE);
     }
 

@@ -220,4 +220,12 @@ public class PixPictureCollectionServiceImpl implements PixPictureCollectionServ
     public List<PixPictureCollection> selectByAuthor(String authorId) {
         return pixPictureCollectionMapper.selectByAuthor(authorId);
     }
+
+    @Override
+    public synchronized int refreshPraise(String id) {
+        PixPictureCollection pixPictureCollection = pixPictureCollectionMapper.selectByPrimaryKey(id);
+        return pixPictureCollectionMapper.updateByPrimaryKeySelective(new PixPictureCollection()
+                .setId(id)
+                .setPraise(pixPictureCollection.getPraise() + 1));
+    }
 }

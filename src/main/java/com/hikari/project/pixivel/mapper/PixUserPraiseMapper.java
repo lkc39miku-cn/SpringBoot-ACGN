@@ -2,6 +2,8 @@ package com.hikari.project.pixivel.mapper;
 
 import com.hikari.project.pixivel.entity.PixUserPraise;
 import java.util.List;
+
+import com.hikari.project.pixivel.service.async.PixUserPraiseAsync;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,5 +26,5 @@ public interface PixUserPraiseMapper {
 
     int batchInsert(@Param("list") List<PixUserPraise> list);
 
-    List<PixUserPraise> selectList(String id);
+    List<PixUserPraise> selectList(PixUserPraise pixUserPraise);
 }

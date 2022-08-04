@@ -21,5 +21,4 @@ public interface SysLoginOsService{
     int updateBatchSelective(List<SysLoginOs> list);
 
     int batchInsert(List<SysLoginOs> list);
-
 }

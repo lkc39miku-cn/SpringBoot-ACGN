@@ -22,4 +22,5 @@ public interface PixTagService{
 
     int batchInsert(List<PixTag> list);
 
+    List<PixTag> selectList(PixTag pixTag);
 }

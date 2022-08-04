@@ -27,4 +27,10 @@ public interface SysStaffMapper {
     List<SysStaff> selectList(SysStaff sysStaff);
 
     List<SysStaff> selectNotList(SysStaff sysStaff);
+
+    List<SysStaff> selectAssigned(SysStaff sysStaff);
+
+    List<SysStaff> selectUnAssigned(SysStaff sysStaff);
+
+    int insertAuthStaffAll(@Param(value = "roleId") String roleId, @Param(value = "staffIdList") List<String> staffIdList);
 }

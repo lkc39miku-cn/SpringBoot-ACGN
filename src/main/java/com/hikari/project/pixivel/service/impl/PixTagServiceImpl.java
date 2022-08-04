@@ -47,4 +47,8 @@ public class PixTagServiceImpl implements PixTagService{
         return pixTagMapper.batchInsert(list);
     }
 
+    @Override
+    public List<PixTag> selectList(PixTag pixTag) {
+        return pixTagMapper.selectList(pixTag);
+    }
 }
