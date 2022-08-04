@@ -1,0 +1,3 @@
+producer:
+  captcha-type: math
+  captcha-expiration: 5

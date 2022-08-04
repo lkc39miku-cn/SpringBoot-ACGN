@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.pixivel.mapper.PixPictureDetailedMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixPictureDetailed">
+<mapper namespace="com.hikari.project.pixivel.mapper.PixPictureDetailedMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.pixivel.entity.PixPictureDetailed">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.pix_picture_detailed-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -14,7 +14,7 @@
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="graphics" jdbcType="INTEGER" property="graphics" />
     <result column="mapping_id" jdbcType="VARCHAR" property="mappingId" />
-    <association property="pixMapping" javaType="com.hikari.system.pixivel.entity.PixMapping" column="mapping_id" select="com.hikari.system.pixivel.mapper.PixMappingMapper.selectByPrimaryKey" />
+    <association property="pixMapping" javaType="com.hikari.project.pixivel.entity.PixMapping" column="mapping_id" select="com.hikari.project.pixivel.mapper.PixMappingMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -39,7 +39,7 @@
       #{item,jdbcType=VARCHAR}
     </foreach>
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixPictureDetailed" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.hikari.project.pixivel.entity.PixPictureDetailed" useGeneratedKeys="true">
     <selectKey resultType="java.lang.String" keyColumn="id" order="AFTER">
       select last_insert_id()
     </selectKey>
@@ -53,7 +53,7 @@
       #{width,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{graphics,jdbcType=INTEGER}, 
       #{mappingId,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixPictureDetailed">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.pixivel.entity.PixPictureDetailed">
     <!--@mbg.generated-->
     update spring_cloud.pix_picture_detailed
     <set>

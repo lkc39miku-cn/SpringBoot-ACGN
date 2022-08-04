@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.system.mapper.SysStaffPostMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysStaffPost">
+<mapper namespace="com.hikari.project.system.mapper.SysStaffPostMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.system.entity.SysStaffPost">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.sys_staff_post-->
     <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
@@ -11,7 +11,7 @@
     <!--@mbg.generated-->
     staff_id, post_id
   </sql>
-  <insert id="insert" parameterType="com.hikari.system.system.entity.SysStaffPost">
+  <insert id="insert" parameterType="com.hikari.project.system.entity.SysStaffPost">
     <!--@mbg.generated-->
     insert into spring_cloud.sys_staff_post (staff_id, post_id)
     values (#{staffId,jdbcType=VARCHAR}, #{postId,jdbcType=VARCHAR})

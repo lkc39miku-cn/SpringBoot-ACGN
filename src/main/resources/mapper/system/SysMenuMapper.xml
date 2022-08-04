@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.system.mapper.SysMenuMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysMenu">
+<mapper namespace="com.hikari.project.system.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.system.entity.SysMenu">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.sys_menu-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -23,8 +23,8 @@
     <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <association property="createStaff" javaType="com.hikari.system.system.entity.SysStaff" column="create_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
-    <association property="updateStaff" javaType="com.hikari.system.system.entity.SysStaff" column="update_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="createStaff" javaType="com.hikari.project.system.entity.SysStaff" column="create_staff_id" select="com.hikari.project.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="updateStaff" javaType="com.hikari.project.system.entity.SysStaff" column="update_staff_id" select="com.hikari.project.system.mapper.SysStaffMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -44,7 +44,7 @@
     delete from spring_cloud.sys_menu
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.system.entity.SysMenu">
+  <insert id="insert" parameterType="com.hikari.project.system.entity.SysMenu">
     <!--@mbg.generated-->
     insert into spring_cloud.sys_menu (id, `name`, parent_id, 
       menu_order, `path`, component, 
@@ -61,7 +61,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.system.entity.SysMenu">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.system.entity.SysMenu">
     <!--@mbg.generated-->
     update spring_cloud.sys_menu
     <set>
@@ -365,5 +365,14 @@
       inner join sys_role_menu rm on m.id = rm.menu_id and rm.role_id = #{id})
     </if>
     order by m.parent_id, m.menu_order
+  </select>
+
+  <select id="selectMenuPermsByStaffId" resultType="java.lang.String">
+    select distinct sm.perms
+    from sys_menu sm
+    left join sys_role_menu srm on sm.id = srm.menu_id
+    left join sys_staff_role ssr on srm.role_id = ssr.role_id
+    left join sys_role sr on sr.id = ssr.role_id
+    where sm.status = 0 and sr.status = 0 and ssr.staff_id = #{id,jdbcType=VARCHAR}
   </select>
 </mapper>

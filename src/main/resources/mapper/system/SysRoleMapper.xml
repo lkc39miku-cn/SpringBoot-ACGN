@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.system.mapper.SysRoleMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysRole">
+<mapper namespace="com.hikari.project.system.mapper.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.system.entity.SysRole">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.sys_role-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -17,8 +17,8 @@
     <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <association property="createStaff" javaType="com.hikari.system.system.entity.SysStaff" column="create_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
-    <association property="updateStaff" javaType="com.hikari.system.system.entity.SysStaff" column="update_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="createStaff" javaType="com.hikari.project.system.entity.SysStaff" column="create_staff_id" select="com.hikari.project.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="updateStaff" javaType="com.hikari.project.system.entity.SysStaff" column="update_staff_id" select="com.hikari.project.system.mapper.SysStaffMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -41,7 +41,7 @@
     delete from spring_cloud.sys_role
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.system.entity.SysRole">
+  <insert id="insert" parameterType="com.hikari.project.system.entity.SysRole">
     <!--@mbg.generated-->
     insert into spring_cloud.sys_role (id, `name`, role_key, 
       sort, menu_check_strictly, dept_check_strictly, 
@@ -54,7 +54,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.system.entity.SysRole">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.system.entity.SysRole">
     <!--@mbg.generated-->
     update spring_cloud.sys_role
     <set>
@@ -211,5 +211,15 @@
     <include refid="Base_Column_List_Rename" />
     left join sys_staff_role ssr on sr.id = ssr.role_id
     where ssr.staff_id = #{staffId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectRolePermissionByStaffId" resultMap="BaseResultMap">
+    select distinct sr.id, sr.name, sr.role_key, sr.sort, sr.menu_check_strictly, sr.dept_check_strictly,
+                    sr.status, sr.delete_status, sr.create_time, sr.remark
+    from sys_role sr
+           left join sys_staff_role ssr on ssr.role_id = sr.id
+           left join sys_staff ss on ss.id = ssr.staff_id
+           left join sys_dept sd on ss.dept_id = sd.id
+    WHERE sr.delete_status = 0 and ssr.staff_id = #{id,jdbcType=VARCHAR}
   </select>
 </mapper>

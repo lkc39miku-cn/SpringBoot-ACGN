@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.system.mapper.SysRoleMenuMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysRoleMenu">
+<mapper namespace="com.hikari.project.system.mapper.SysRoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.system.entity.SysRoleMenu">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.sys_role_menu-->
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
@@ -11,7 +11,7 @@
     <!--@mbg.generated-->
     role_id, menu_id
   </sql>
-  <insert id="insert" parameterType="com.hikari.system.system.entity.SysRoleMenu">
+  <insert id="insert" parameterType="com.hikari.project.system.entity.SysRoleMenu">
     <!--@mbg.generated-->
     insert into spring_cloud.sys_role_menu (role_id, menu_id)
     values (#{roleId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR})

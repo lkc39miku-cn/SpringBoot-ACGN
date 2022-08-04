@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.pixivel.mapper.PixUserOrderMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixUserOrder">
+<mapper namespace="com.hikari.project.pixivel.mapper.PixUserOrderMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.pixivel.entity.PixUserOrder">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.pix_user_order-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -12,7 +12,7 @@
     <result column="pix_user_id" jdbcType="VARCHAR" property="pixUserId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <association property="pixUser" javaType="com.hikari.system.pixivel.entity.PixUser" column="pix_user_id" select="com.hikari.system.pixivel.mapper.PixUserMapper.selectByPrimaryKey" />
+    <association property="pixUser" javaType="com.hikari.project.pixivel.entity.PixUser" column="pix_user_id" select="com.hikari.project.pixivel.mapper.PixUserMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -30,7 +30,7 @@
     delete from spring_cloud.pix_user_order
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUserOrder">
+  <insert id="insert" parameterType="com.hikari.project.pixivel.entity.PixUserOrder">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_user_order (id, order_number, price, 
       context, `status`, pix_user_id, 
@@ -39,7 +39,7 @@
       #{context,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{pixUserId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUserOrder">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.pixivel.entity.PixUserOrder">
     <!--@mbg.generated-->
     update spring_cloud.pix_user_order
     <set>

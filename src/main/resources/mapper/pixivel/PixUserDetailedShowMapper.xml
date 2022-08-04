@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.pixivel.mapper.PixUserDetailedShowMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixUserDetailedShow">
+<mapper namespace="com.hikari.project.pixivel.mapper.PixUserDetailedShowMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.pixivel.entity.PixUserDetailedShow">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.pix_user_detailed_show-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -33,7 +33,7 @@
     delete from spring_cloud.pix_user_detailed_show
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUserDetailedShow">
+  <insert id="insert" parameterType="com.hikari.project.pixivel.entity.PixUserDetailedShow">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_user_detailed_show (id, sex_show, country_show, 
       birthday_year_show, birthday_other_show, profession_id_show, 
@@ -42,7 +42,7 @@
       #{birthdayYearShow,jdbcType=INTEGER}, #{birthdayOtherShow,jdbcType=INTEGER}, #{professionIdShow,jdbcType=INTEGER}, 
       #{collectShow,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUserDetailedShow">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.pixivel.entity.PixUserDetailedShow">
     <!--@mbg.generated-->
     update spring_cloud.pix_user_detailed_show
     <set>

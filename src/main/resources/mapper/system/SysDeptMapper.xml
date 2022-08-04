@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.system.mapper.SysDeptMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysDept">
+<mapper namespace="com.hikari.project.system.mapper.SysDeptMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.system.entity.SysDept">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.sys_dept-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -19,9 +19,9 @@
     <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <association property="createStaff" javaType="com.hikari.system.system.entity.SysStaff" column="create_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
-    <association property="updateStaff" javaType="com.hikari.system.system.entity.SysStaff" column="update_staff_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
-    <association property="leaderStaff" javaType="com.hikari.system.system.entity.SysStaff" column="leader_id" select="com.hikari.system.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="createStaff" javaType="com.hikari.project.system.entity.SysStaff" column="create_staff_id" select="com.hikari.project.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="updateStaff" javaType="com.hikari.project.system.entity.SysStaff" column="update_staff_id" select="com.hikari.project.system.mapper.SysStaffMapper.selectByPrimaryKey" />
+    <association property="leaderStaff" javaType="com.hikari.project.system.entity.SysStaff" column="leader_id" select="com.hikari.project.system.mapper.SysStaffMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -40,7 +40,7 @@
     delete from spring_cloud.sys_dept
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.system.entity.SysDept">
+  <insert id="insert" parameterType="com.hikari.project.system.entity.SysDept">
     <!--@mbg.generated-->
     insert into spring_cloud.sys_dept (id, parent_id, ancestors, 
       `name`, dept_order, leader_id, 
@@ -55,7 +55,7 @@
       #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.system.entity.SysDept">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.system.entity.SysDept">
     <!--@mbg.generated-->
     update spring_cloud.sys_dept
     <set>

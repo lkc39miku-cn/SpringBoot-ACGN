@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.system.mapper.SysStaffMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.system.entity.SysStaff">
+<mapper namespace="com.hikari.project.system.mapper.SysStaffMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.system.entity.SysStaff">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.sys_staff-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -22,9 +22,9 @@
     <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <association property="createStaff" javaType="com.hikari.system.system.entity.SysStaff" column="create_staff_id" select="selectByPrimaryKey" />
-    <association property="updateStaff" javaType="com.hikari.system.system.entity.SysStaff" column="update_staff_id" select="selectByPrimaryKey" />
-    <association property="sysDept" javaType="com.hikari.system.system.entity.SysDept" column="dept_id" select="com.hikari.system.system.mapper.SysDeptMapper.selectByPrimaryKey" />
+    <association property="createStaff" javaType="com.hikari.project.system.entity.SysStaff" column="create_staff_id" select="selectByPrimaryKey" />
+    <association property="updateStaff" javaType="com.hikari.project.system.entity.SysStaff" column="update_staff_id" select="selectByPrimaryKey" />
+    <association property="sysDept" javaType="com.hikari.project.system.entity.SysDept" column="dept_id" select="com.hikari.project.system.mapper.SysDeptMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -44,7 +44,7 @@
     delete from spring_cloud.sys_staff
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.system.entity.SysStaff">
+  <insert id="insert" parameterType="com.hikari.project.system.entity.SysStaff">
     <!--@mbg.generated-->
     insert into spring_cloud.sys_staff (id, dept_id, username, 
       nickname, email, phone, 
@@ -61,7 +61,7 @@
       #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.system.entity.SysStaff">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.system.entity.SysStaff">
     <!--@mbg.generated-->
     update spring_cloud.sys_staff
     <set>

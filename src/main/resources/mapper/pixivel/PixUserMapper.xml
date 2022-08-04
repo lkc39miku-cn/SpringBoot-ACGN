@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.pixivel.mapper.PixUserMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixUser">
+<mapper namespace="com.hikari.project.pixivel.mapper.PixUserMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.pixivel.entity.PixUser">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.pix_user-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -13,8 +13,8 @@
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="user_detailed_id" jdbcType="VARCHAR" property="userDetailedId" />
-    <association property="user" javaType="com.hikari.system.user.entity.User" column="user_id" select="com.hikari.system.user.mapper.UserMapper.selectByPrimaryKey" />
-    <association property="pixUserDetailed" javaType="com.hikari.system.pixivel.entity.PixUserDetailed" column="user_detailed_id" select="com.hikari.system.pixivel.mapper.PixUserDetailedMapper.selectByPrimaryKey" />
+    <association property="user" javaType="com.hikari.project.user.entity.User" column="user_id" select="com.hikari.project.user.mapper.UserMapper.selectByPrimaryKey" />
+    <association property="pixUserDetailed" javaType="com.hikari.project.pixivel.entity.PixUserDetailed" column="user_detailed_id" select="com.hikari.project.pixivel.mapper.PixUserDetailedMapper.selectByPrimaryKey" />
   </resultMap>
   
   <sql id="Base_Column_List">
@@ -34,7 +34,7 @@
     delete from spring_cloud.pix_user
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUser">
+  <insert id="insert" parameterType="com.hikari.project.pixivel.entity.PixUser">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_user (id, nickname, avatar,
     background, description, website,
@@ -45,7 +45,7 @@
     #{userId,jdbcType=VARCHAR}, #{userDetailedId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
     )
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.pixivel.entity.PixUser">
     <!--@mbg.generated-->
     update spring_cloud.pix_user
     <set>

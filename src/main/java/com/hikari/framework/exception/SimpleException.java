@@ -1,5 +1,7 @@
 package com.hikari.framework.exception;
 
+import lombok.Getter;
+
 import java.io.Serial;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serial;
  *
  * @author lkc39miku_cn
  */
+@Getter
 public class SimpleException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = -5708051897123269581L;

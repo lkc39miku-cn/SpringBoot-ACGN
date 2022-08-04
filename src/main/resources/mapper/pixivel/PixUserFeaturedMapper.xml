@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.pixivel.mapper.PixUserFeaturedMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixUserFeatured">
+<mapper namespace="com.hikari.project.pixivel.mapper.PixUserFeaturedMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.pixivel.entity.PixUserFeatured">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.pix_user_featured-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -25,14 +25,14 @@
     delete from spring_cloud.pix_user_featured
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUserFeatured">
+  <insert id="insert" parameterType="com.hikari.project.pixivel.entity.PixUserFeatured">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_user_featured (id, pix_user_id, picture_collection_id, 
       create_time)
     values (#{id,jdbcType=VARCHAR}, #{pixUserId,jdbcType=VARCHAR}, #{pictureCollectionId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUserFeatured">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.pixivel.entity.PixUserFeatured">
     <!--@mbg.generated-->
     update spring_cloud.pix_user_featured
     <set>

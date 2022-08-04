@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.pixivel.mapper.PixTagMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixTag">
+<mapper namespace="com.hikari.project.pixivel.mapper.PixTagMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.pixivel.entity.PixTag">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.pix_tag-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -34,14 +34,14 @@
     delete from spring_cloud.pix_tag
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixTag">
+  <insert id="insert" parameterType="com.hikari.project.pixivel.entity.PixTag">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_tag (id, `name`, other_name, 
       image)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{otherName,jdbcType=VARCHAR}, 
       #{image,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixTag">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.pixivel.entity.PixTag">
     <!--@mbg.generated-->
     update spring_cloud.pix_tag
     <set>

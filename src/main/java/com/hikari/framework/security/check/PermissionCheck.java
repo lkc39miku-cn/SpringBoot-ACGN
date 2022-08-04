@@ -1,5 +1,9 @@
 package com.hikari.framework.security.check;
 
+import com.hikari.commons.key.PermissionKey;
+import com.hikari.commons.util.SecurityUtils;
+import com.hikari.project.login.entity.LoginStaff;
+import com.hikari.project.system.entity.SysRole;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -23,14 +27,13 @@ public class PermissionCheck {
         if (StringUtils.isEmpty(permission)) {
             return false;
         }
-        return false;
-//        LoginStaff staff = SecurityUtils.getLoginStaff();
-//
-//        if (Objects.isNull(staff) || CollectionUtils.isEmpty(staff.getPermissions())) {
-//            return false;
-//        }
-//
-//        return hasPermissions(staff.getPermissions(), permission);
+        LoginStaff staff = SecurityUtils.getLoginStaff();
+
+        if (Objects.isNull(staff) || CollectionUtils.isEmpty(staff.getPermissions())) {
+            return false;
+        }
+
+        return hasPermissions(staff.getPermissions(), permission);
     }
 
     /**
@@ -47,17 +50,17 @@ public class PermissionCheck {
             return false;
         }
 
-//        LoginStaff staff = SecurityUtils.getLoginStaff();
-//        if (Objects.isNull(staff) || CollectionUtils.isEmpty(staff.getPermissions())) {
-//            return false;
-//        }
-//
-//        Set<String> authorities = staff.getPermissions();
-//        for (String permission : permissions.split(PermissionKey.PERMISSION_DELIMITER)) {
-//            if (StringUtils.isNotEmpty(permission) && Boolean.TRUE.equals(hasPermissions(authorities, permission))) {
-//                return true;
-//            }
-//        }
+        LoginStaff staff = SecurityUtils.getLoginStaff();
+        if (Objects.isNull(staff) || CollectionUtils.isEmpty(staff.getPermissions())) {
+            return false;
+        }
+
+        Set<String> authorities = staff.getPermissions();
+        for (String permission : permissions.split(PermissionKey.PERMISSION_DELIMITER)) {
+            if (StringUtils.isNotEmpty(permission) && Boolean.TRUE.equals(hasPermissions(authorities, permission))) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -71,17 +74,17 @@ public class PermissionCheck {
             return false;
         }
 
-//        LoginStaff staff = SecurityUtils.getLoginStaff();
-//        if (Objects.isNull(staff) || CollectionUtils.isEmpty(staff.getStaff().getRoleList())) {
-//            return false;
-//        }
-//
-//        for (Role i : staff.getStaff().getRoleList()) {
-//            String roleKey = i.getRoleKey();
-//            if (PermissionKey.SUPER_ADMIN.equals(roleKey) || roleKey.equals(StringUtils.trim(role))) {
-//                return true;
-//            }
-//        }
+        LoginStaff staff = SecurityUtils.getLoginStaff();
+        if (Objects.isNull(staff) || CollectionUtils.isEmpty(staff.getSysStaff().getSysRoleList())) {
+            return false;
+        }
+
+        for (SysRole i : staff.getSysStaff().getSysRoleList()) {
+            String roleKey = i.getRoleKey();
+            if (PermissionKey.SUPER_ADMIN.equals(roleKey) || roleKey.equals(StringUtils.trim(role))) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -104,22 +107,21 @@ public class PermissionCheck {
             return false;
         }
 
-//        LoginStaff staff = SecurityUtils.getLoginStaff();
-//        if (Objects.isNull(staff) || CollectionUtils.isEmpty(staff.getStaff().getRoleList())) {
-//            return false;
-//        }
-//
-//        for (String role : roles.split(PermissionKey.ROLE_DELIMITER)) {
-//            if (Boolean.TRUE.equals(hasRole(role))) {
-//                return true;
-//            }
-//        }
+        LoginStaff staff = SecurityUtils.getLoginStaff();
+        if (Objects.isNull(staff) || CollectionUtils.isEmpty(staff.getSysStaff().getSysRoleList())) {
+            return false;
+        }
+
+        for (String role : roles.split(PermissionKey.ROLE_DELIMITER)) {
+            if (Boolean.TRUE.equals(hasRole(role))) {
+                return true;
+            }
+        }
         return false;
     }
 
     private Boolean hasPermissions(Set<String> permissions, String permission) {
-//        return permissions.contains(PermissionKey.ALL_PERMISSION) || permissions.contains(StringUtils.trim(permission));
-        return false;
+        return permissions.contains(PermissionKey.ALL_PERMISSION) || permissions.contains(StringUtils.trim(permission));
     }
 
 }

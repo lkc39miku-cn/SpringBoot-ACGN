@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikari.project.monitor.mapper.SysLoginOsMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.monitor.entity.SysLoginOs">
+    <!--@mbg.generated-->
+    <!--@Table spring_cloud.sys_login_os-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="login_location" jdbcType="VARCHAR" property="loginLocation" />
+    <result column="browser" jdbcType="VARCHAR" property="browser" />
+    <result column="os" jdbcType="VARCHAR" property="os" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, username, ip, login_location, browser, os, `status`, msg, login_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from spring_cloud.sys_login_os
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from spring_cloud.sys_login_os
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hikari.project.monitor.entity.SysLoginOs">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_login_os (id, username, ip, 
+      login_location, browser, os, 
+      `status`, msg, login_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{loginLocation,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{msg,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.monitor.entity.SysLoginOs">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_login_os
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="loginLocation != null">
+        login_location = #{loginLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null">
+        browser = #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null">
+        os = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null">
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update spring_cloud.sys_login_os
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="username = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.username != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.username,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ip = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.ip != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.ip,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="login_location = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.loginLocation != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.loginLocation,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="browser = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.browser != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.browser,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="os = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.os != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.os,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.status,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="msg = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.msg != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.msg,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="login_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.loginTime != null">
+            when id = #{item.id,jdbcType=VARCHAR} then #{item.loginTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into spring_cloud.sys_login_os
+    (id, username, ip, login_location, browser, os, `status`, msg, login_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.username,jdbcType=VARCHAR}, #{item.ip,jdbcType=VARCHAR}, 
+        #{item.loginLocation,jdbcType=VARCHAR}, #{item.browser,jdbcType=VARCHAR}, #{item.os,jdbcType=VARCHAR}, 
+        #{item.status,jdbcType=INTEGER}, #{item.msg,jdbcType=VARCHAR}, #{item.loginTime,jdbcType=TIMESTAMP}
+        )
+    </foreach>
+  </insert>
+</mapper>

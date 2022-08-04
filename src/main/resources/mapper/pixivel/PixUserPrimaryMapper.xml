@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.pixivel.mapper.PixUserPrimaryMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.pixivel.entity.PixUserPrimary">
+<mapper namespace="com.hikari.project.pixivel.mapper.PixUserPrimaryMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.pixivel.entity.PixUserPrimary">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.pix_user_primary-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -9,7 +9,7 @@
     <result column="pix_user_id" jdbcType="VARCHAR" property="pixUserId" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <association property="pixUser" javaType="com.hikari.system.pixivel.entity.PixUser" column="pix_user_id" select="com.hikari.system.pixivel.mapper.PixUserMapper.selectByPrimaryKey" />
+    <association property="pixUser" javaType="com.hikari.project.pixivel.entity.PixUser" column="pix_user_id" select="com.hikari.project.pixivel.mapper.PixUserMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -27,14 +27,14 @@
     delete from spring_cloud.pix_user_primary
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.pixivel.entity.PixUserPrimary">
+  <insert id="insert" parameterType="com.hikari.project.pixivel.entity.PixUserPrimary">
     <!--@mbg.generated-->
     insert into spring_cloud.pix_user_primary (id, `primary`, pix_user_id, 
       start_time, end_time)
     values (#{id,jdbcType=VARCHAR}, #{primary,jdbcType=INTEGER}, #{pixUserId,jdbcType=VARCHAR}, 
       #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.pixivel.entity.PixUserPrimary">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.pixivel.entity.PixUserPrimary">
     <!--@mbg.generated-->
     update spring_cloud.pix_user_primary
     <set>

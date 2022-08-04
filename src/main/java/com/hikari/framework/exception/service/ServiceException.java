@@ -1,6 +1,8 @@
 package com.hikari.framework.exception.service;
 
+import com.hikari.commons.enums.HttpServletResponse;
 import com.hikari.framework.exception.SimpleException;
+import lombok.Getter;
 
 import java.io.Serial;
 
@@ -15,5 +17,9 @@ public class ServiceException extends SimpleException {
 
     public ServiceException(String code, String message) {
         super(code, message, "service");
+    }
+
+    public ServiceException(HttpServletResponse httpServletResponse) {
+        super(httpServletResponse.code().toString(), httpServletResponse.message(), "service");
     }
 }

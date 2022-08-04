@@ -36,6 +36,9 @@ public class Swagger {
     @Resource
     private SwaggerProperties swaggerProperties;
 
+    @Resource
+    private SwaggerSecurity swaggerSecurity;
+
     public Docket docket() {
         return new Docket(DocumentationType.OAS_30)
                 .enable(swaggerProperties.getEnable())
@@ -44,6 +47,8 @@ public class Swagger {
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
+                .securitySchemes(swaggerSecurity.securitySchemes())
+                .securityContexts(swaggerSecurity.securityContexts())
                 .pathMapping(swaggerProperties.getPathMapping());
     }
 

@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author lkc39miku_cn
  */
-@MapperScan("com.hikari.system.**.mapper")
+@MapperScan("com.hikari.project.**.mapper")
 @SpringBootApplication
 public class SpringBootACGNApplication {
     public static void main(String[] args) {

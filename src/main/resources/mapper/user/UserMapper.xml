@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hikari.system.user.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.hikari.system.user.entity.User">
+<mapper namespace="com.hikari.project.user.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.hikari.project.user.entity.User">
     <!--@mbg.generated-->
     <!--@Table spring_cloud.`user`-->
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -28,7 +28,7 @@
     delete from spring_cloud.`user`
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hikari.system.user.entity.User">
+  <insert id="insert" parameterType="com.hikari.project.user.entity.User">
     <!--@mbg.generated-->
     insert into spring_cloud.`user` (id, username, `password`, 
       email, phone, `status`, 
@@ -37,7 +37,7 @@
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.system.user.entity.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hikari.project.user.entity.User">
     <!--@mbg.generated-->
     update spring_cloud.`user`
     <set>
