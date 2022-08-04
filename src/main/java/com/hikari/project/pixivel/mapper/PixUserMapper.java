@@ -28,4 +28,6 @@ public interface PixUserMapper {
     List<PixUser> selectAll(PixUser pixUser);
 
     List<PixUser> selectPraise();
+
+    PixUser selectByUserId(String id);
 }

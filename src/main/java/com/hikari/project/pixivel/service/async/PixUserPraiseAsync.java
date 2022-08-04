@@ -8,6 +8,7 @@ import com.hikari.project.pixivel.service.impl.PixPictureCollectionServiceImpl;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -19,14 +20,13 @@ import java.util.TimerTask;
  * @author lkc39miku_cn
  */
 @Slf4j
+@Async(value = "asyncServiceExecutor")
 public class PixUserPraiseAsync {
-
-    public static TimerTask refreshPraisePictureCollection(String id) {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                SpringUtils.getBean(PixPictureCollectionServiceImpl.class).refreshPraise(id);
-            }
-        };
+    /**
+     * 刷新用户点赞的图片集合的点赞数量
+     * @param id 图片集合id
+     */
+    public static void refreshPraisePictureCollection(String id) {
+        SpringUtils.getBean(PixPictureCollectionServiceImpl.class).refreshPraise(id);
     }
 }

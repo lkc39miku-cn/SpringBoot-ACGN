@@ -20,4 +20,7 @@ public class CacheKey {
     public static final String REPEAT_SUBMIT_KEY = "repeat_submit:";
 
     public static final String RATE_LIMIT_KEY = "rate_limit:";
+
+    public static final String PIX_USER_KEY = "pix_user:";
+    public static final String PIX_USER_ONLINE = "pix_user_online:";
 }

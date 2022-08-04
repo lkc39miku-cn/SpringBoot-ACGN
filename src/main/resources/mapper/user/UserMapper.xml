@@ -125,4 +125,22 @@
         #{item.createTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from user
+    <where>
+      <if test="username != null and username != ''">
+        and username like concat('%', #{username,jdbcType=VARCHAR}, '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByUsername" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
 </mapper>

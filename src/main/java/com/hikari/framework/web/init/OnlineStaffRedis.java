@@ -29,5 +29,10 @@ public class OnlineStaffRedis {
             redisCache.deleteObject(CacheKey.ONLINE_STAFF_KEY);
         }
         redisCache.setCacheObject(CacheKey.ONLINE_STAFF_KEY, 0);
+
+        if (Objects.nonNull(redisCache.getCacheObject(CacheKey.PIX_USER_ONLINE))) {
+            redisCache.deleteObject(CacheKey.PIX_USER_ONLINE);
+        }
+        redisCache.setCacheObject(CacheKey.PIX_USER_ONLINE, 0);
     }
 }

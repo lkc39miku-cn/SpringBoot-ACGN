@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
-public final class JwtUtils {
+public class JwtUtils {
     public static final Long JWT_TTL = 60 * 60 * 1000L;
 
     @Value("${jwt.secret}")

@@ -14,13 +14,24 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+/**
+ *
+ * @author
+ */
 @Intercepts({@Signature(type = Executor.class,method = "update",args = {MappedStatement.class,Object.class})})
 @Slf4j
 public class AutoIdInterceptorPlugin implements Interceptor {
+    /**
+     * 插件配置
+     * @param invocation invocation
+     * @return Object
+     * @throws Throwable throwable
+     */
    @Override
    public Object intercept(Invocation invocation) throws Throwable {
        Object[] args = invocation.getArgs();
        MappedStatement arg = (MappedStatement) args[0];
+       // insert 方法判断
        if (SqlCommandType.INSERT.name().equals(arg.getSqlCommandType().name())) {
            ParameterMap parameterMap = arg.getParameterMap();
            Class<?> type = parameterMap.getType();
@@ -46,6 +57,12 @@ public class AutoIdInterceptorPlugin implements Interceptor {
        log.warn(properties.toString());
    }
 
+    /**
+     * 设置字段值
+     * @param o o
+     * @param args args
+     * @param attributeValue attributeValue
+     */
    public static void setField(Object o,String args,Object attributeValue){
        Class<?> cls = o.getClass();
        String fieldName = "set"+args.substring(0,1).toUpperCase()+(args.length()>1?args.substring(1):"");

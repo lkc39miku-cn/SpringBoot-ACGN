@@ -1,5 +1,8 @@
 package com.hikari.commons.util.id;
 
+/**
+ * 雪花算法ID生成器
+ */
 public class SnowflakeIdWorker {
     /**
      * 开始时间截 (2015-01-01)

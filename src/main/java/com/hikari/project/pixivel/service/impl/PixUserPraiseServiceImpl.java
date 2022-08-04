@@ -36,7 +36,7 @@ public class PixUserPraiseServiceImpl implements PixUserPraiseService{
     @Override
     public int insert(PixUserPraise record) {
         record.setCreateTime(LocalDateTime.now());
-        AsyncManager.me().execute(PixUserPraiseAsync.refreshPraisePictureCollection(record.getPictureCollectionId()));
+        PixUserPraiseAsync.refreshPraisePictureCollection(record.getPictureCollectionId());
         return pixUserPraiseMapper.insert(record);
     }
 
