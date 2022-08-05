@@ -1,6 +1,7 @@
 package com.hikari.project.pixivel.filter;
 
 import com.alibaba.fastjson2.JSON;
+import com.hikari.commons.filter.PixInterceptorKey;
 import com.hikari.commons.key.CacheKey;
 import com.hikari.commons.util.JwtUtils;
 import com.hikari.framework.exception.user.valid.PixUserBlackRedisException;
@@ -10,25 +11,29 @@ import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * PixUserFilter
  * pixivel模块用户拦截
+ * 无法被全局异常类捕捉 换为 interceptor
+ * 且存在 return 后继续执行代码
  * @author lkc39miku_cn
  */
 @Slf4j
-@Component
+//@WebFilter(urlPatterns = "/spring_cloud.pix**")
+@Deprecated
 public class PixUserFilter extends OncePerRequestFilter {
+
 
     @Value("${jwt.header}")
     private String token;
@@ -37,6 +42,12 @@ public class PixUserFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        if (PixInterceptorKey.IS_OK.contains(request.getRequestURI())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // 获取token
         String token = request.getHeader(this.token);
         // 空token放行 pixUserTokenInterceptor 做处理

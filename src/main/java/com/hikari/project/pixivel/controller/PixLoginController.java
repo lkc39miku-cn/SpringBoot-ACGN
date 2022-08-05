@@ -7,6 +7,7 @@ import com.hikari.project.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +34,7 @@ public class PixLoginController {
      */
     @PostMapping("/login")
     @ApiOperation(value = "登录", notes = "登录")
-    public Result<String> login(User user) {
+    public Result<String> login(@RequestBody User user) {
         return Result.success(pixLoginServiceImpl.login(user));
     }
 

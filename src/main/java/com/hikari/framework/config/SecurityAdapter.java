@@ -81,7 +81,7 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 跨域配置
-        http.csrf().disable();
+        http.cors().and().csrf().disable();
 
         // 认证配置
 //        http.exceptionHandling()

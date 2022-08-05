@@ -33,4 +33,10 @@ public interface PixPictureCollectionService{
     List<PixPictureCollection> selectByAuthor(String authorId);
 
     int refreshPraise(String id);
+
+    int refreshCollect(String pictureCollectionId);
+
+    int refreshDeletePraise(String id);
+
+    int refreshDeleteCollect(String id);
 }

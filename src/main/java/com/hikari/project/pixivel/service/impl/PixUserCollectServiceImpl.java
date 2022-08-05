@@ -3,6 +3,13 @@ package com.hikari.project.pixivel.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hikari.commons.entity.Page;
+import com.hikari.commons.key.NumberKey;
+import com.hikari.commons.key.StatusKey;
+import com.hikari.framework.exception.service.ServiceException;
+import com.hikari.framework.thread.ThreadLocalInfo;
+import com.hikari.project.pixivel.entity.PixUser;
+import com.hikari.project.pixivel.service.async.PixUserCollectAsync;
+import com.hikari.project.pixivel.service.async.PixUserPraiseAsync;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -28,8 +35,18 @@ public class PixUserCollectServiceImpl implements PixUserCollectService{
 
     @Override
     public int insert(PixUserCollect record) {
+        if (pixUserCollectMapper.selectList(new PixUserCollect()
+                .setPixUserId("1")
+                .setPictureCollectionId(record.getPictureCollectionId()))
+                .size() > NumberKey.ZERO) {
+            throw new ServiceException("used_collect", "已收藏该图集");
+        }
+        record.setPixUserId(((PixUser) ThreadLocalInfo.get()).getUserId());
         record.setCreateTime(LocalDateTime.now());
-        return pixUserCollectMapper.insert(record);
+        if (pixUserCollectMapper.insert(record) > NumberKey.ZERO) {
+            PixUserCollectAsync.refreshCollectPictureCollection(record.getPictureCollectionId());
+        }
+        return StatusKey.SUCCESS_INT;
     }
 
     @Override
@@ -65,5 +82,14 @@ public class PixUserCollectServiceImpl implements PixUserCollectService{
     @Override
     public int updateTagBatch(PixUserCollect pixUserCollect) {
         return pixUserCollectMapper.updateTagBatch(pixUserCollect);
+    }
+
+    @Override
+    public int deleteByUser(String id) {
+        String userId = ((PixUser) ThreadLocalInfo.get()).getUserId();
+        if (pixUserCollectMapper.deleteByUser(userId, id) > NumberKey.ZERO) {
+            PixUserCollectAsync.refreshDeleteCollectPictureCollection(id);
+        }
+        return StatusKey.SUCCESS_INT;
     }
 }

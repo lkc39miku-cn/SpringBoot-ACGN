@@ -83,4 +83,15 @@ public class PixUserPraiseController {
     public Result<String> delete(@PathVariable(value = "id") String id) {
         return CompareExecute.compare(pixUserPraiseServiceImpl.deleteByPrimaryKey(id), CompareExecute.ExecuteStatus.DELETE);
     }
+
+    /**
+     * 取消点赞
+     * @param id 图片集合
+     * @return 是否成功
+     */
+    @DeleteMapping("user/delete/{id}")
+    @ApiOperation(value = "取消点赞", notes = "取消点赞")
+    public Result<String> userDelete(@PathVariable(value = "id") String id) {
+        return CompareExecute.compare(pixUserPraiseServiceImpl.deleteByUser(id), CompareExecute.ExecuteStatus.DELETE);
+    }
 }

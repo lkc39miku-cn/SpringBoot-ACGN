@@ -1,5 +1,6 @@
 package com.hikari.project.pixivel.entity;
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hikari.framework.annotation.AutoGenerateId;
 import com.hikari.framework.annotation.IdAnnotation;

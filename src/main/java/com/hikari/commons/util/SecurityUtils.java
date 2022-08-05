@@ -3,6 +3,7 @@ package com.hikari.commons.util;
 import com.hikari.commons.enums.HttpServletResponse;
 import com.hikari.framework.exception.service.ServiceException;
 import com.hikari.project.login.entity.LoginStaff;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * SecurityUtils
  * @author lkc39miku_cn
  */
+@Slf4j
 public class SecurityUtils {
     public static LoginStaff getLoginStaff() {
         try {
@@ -45,5 +47,10 @@ public class SecurityUtils {
     public static Boolean matchesPassword(String rawPassword, String encodedPassword) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder.matches(rawPassword, encodedPassword);
+    }
+
+    public static void main(String[] args) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        log.info(bCryptPasswordEncoder.encode("123456"));
     }
 }

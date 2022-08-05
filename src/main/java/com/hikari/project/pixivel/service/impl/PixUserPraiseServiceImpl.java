@@ -1,7 +1,11 @@
 package com.hikari.project.pixivel.service.impl;
 
 import com.hikari.commons.key.NumberKey;
+import com.hikari.commons.key.StatusKey;
+import com.hikari.framework.exception.service.ServiceException;
 import com.hikari.framework.manager.AsyncManager;
+import com.hikari.framework.thread.ThreadLocalInfo;
+import com.hikari.project.pixivel.entity.PixUser;
 import com.hikari.project.pixivel.entity.vo.PixUserPraiseVo;
 import com.hikari.project.pixivel.mapper.PixPictureCollectionMapper;
 import com.hikari.project.pixivel.service.async.PixUserPraiseAsync;
@@ -35,9 +39,18 @@ public class PixUserPraiseServiceImpl implements PixUserPraiseService{
 
     @Override
     public int insert(PixUserPraise record) {
+        if (pixUserPraiseMapper.selectList(new PixUserPraise()
+                .setPixUserId("1")
+                .setPictureCollectionId(record.getPictureCollectionId()))
+                .size() > NumberKey.ZERO) {
+            throw new ServiceException("used_praise", "已点过赞");
+        }
+        record.setPixUserId(((PixUser) ThreadLocalInfo.get()).getUserId());
         record.setCreateTime(LocalDateTime.now());
-        PixUserPraiseAsync.refreshPraisePictureCollection(record.getPictureCollectionId());
-        return pixUserPraiseMapper.insert(record);
+        if (pixUserPraiseMapper.insert(record) > NumberKey.ZERO) {
+            PixUserPraiseAsync.refreshPraisePictureCollection(record.getPictureCollectionId());
+        }
+        return StatusKey.SUCCESS_INT;
     }
 
     @Override
@@ -72,5 +85,14 @@ public class PixUserPraiseServiceImpl implements PixUserPraiseService{
     public boolean isPraise(String pictureId) {
         return pixUserPraiseMapper.selectList(new PixUserPraise().setPictureCollectionId(pictureId)
                 .setPixUserId("1")).size() > NumberKey.ZERO;
+    }
+
+    @Override
+    public int deleteByUser(String id) {
+        String userId = ((PixUser) ThreadLocalInfo.get()).getUserId();
+        if (pixUserPraiseMapper.deleteByUser(userId, id) > NumberKey.ZERO) {
+            PixUserPraiseAsync.refreshDeletePraisePictureCollection(id);
+        }
+        return StatusKey.SUCCESS_INT;
     }
 }

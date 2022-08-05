@@ -26,4 +26,6 @@ public interface PixUserPraiseService{
     PixUserPraiseVo selectList();
 
     boolean isPraise(String pictureId);
+
+    int deleteByUser(String id);
 }

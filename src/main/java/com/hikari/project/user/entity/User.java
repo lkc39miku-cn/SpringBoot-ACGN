@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -56,7 +57,7 @@ public class User implements Serializable {
     * 创建时间
     */
     @ApiModelProperty(value="创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @Serial
     private static final long serialVersionUID = 1L;

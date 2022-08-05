@@ -2,11 +2,13 @@ package com.hikari.project.pixivel.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.hikari.commons.key.CacheKey;
+import com.hikari.commons.util.DateUtils;
 import com.hikari.commons.util.JwtUtils;
 import com.hikari.commons.util.SecurityUtils;
 import com.hikari.framework.exception.user.valid.PixUserExistException;
 import com.hikari.framework.exception.user.valid.PixUserPasswordNotMatchException;
 import com.hikari.framework.redis.RedisCache;
+import com.hikari.framework.thread.ThreadLocalInfo;
 import com.hikari.project.pixivel.entity.PixUser;
 import com.hikari.project.pixivel.mapper.PixUserMapper;
 import com.hikari.project.pixivel.service.PixLoginService;
@@ -23,7 +25,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * PixLoginServiceImpl
@@ -55,7 +60,7 @@ public class PixLoginServiceImpl implements PixLoginService {
             throw new PixUserPasswordNotMatchException("密码错误");
         }
 
-        String id = user.getId();
+        String id = loginUser.getId();
         Object json = redisCache.getCacheObject(CacheKey.PIX_USER_KEY + id);
 
         if (Objects.nonNull(json)) {
@@ -71,7 +76,7 @@ public class PixLoginServiceImpl implements PixLoginService {
             throw new PixUserExistException("用户不存在");
         }
 
-        redisCache.setCacheObject(CacheKey.PIX_USER_KEY + id, pixUser);
+        redisCache.setCacheObject(CacheKey.PIX_USER_KEY + id, JSON.toJSON(pixUser));
         log.info("token: {}", jwt);
         log.info("login: {}, {}", id, pixUser);
 
@@ -86,6 +91,24 @@ public class PixLoginServiceImpl implements PixLoginService {
 
     @Override
     public String logout(HttpServletRequest request) {
-        return null;
+        PixUser pixUser = (PixUser) ThreadLocalInfo.get();
+        String id = pixUser.getId();
+        redisCache.deleteObject(CacheKey.PIX_USER_KEY + id);
+
+        String token = request.getHeader("token");
+        Date endDate = JwtUtils.parseJwt(token).getExpiration();
+        Date startDate = JwtUtils.parseJwt(token).getIssuedAt();
+        log.info("start time: {}, end time: {}", startDate, endDate);
+
+        long leftSeconds = DateUtils.getDateSubSeconds(startDate, endDate);
+
+        log.info("left seconds: {}", leftSeconds);
+
+        redisCache.setCacheObject(token, "black redis", Math.toIntExact(leftSeconds), TimeUnit.SECONDS);
+
+        Integer object = redisCache.getCacheObject(CacheKey.PIX_USER_ONLINE);
+        redisCache.setCacheObject(CacheKey.PIX_USER_ONLINE, --object);
+
+        return "success";
     }
 }

@@ -29,4 +29,6 @@ public interface PixUserCollectService{
     List<String> selectTag();
 
     int updateTagBatch(PixUserCollect pixUserCollect);
+
+    int deleteByUser(String id);
 }

@@ -27,4 +27,6 @@ public interface PixUserPraiseMapper {
     int batchInsert(@Param("list") List<PixUserPraise> list);
 
     List<PixUserPraise> selectList(PixUserPraise pixUserPraise);
+
+    int deleteByUser(@Param(value = "userId") String userId, @Param(value = "id") String id);
 }

@@ -39,6 +39,7 @@ public class Swagger {
     @Resource
     private SwaggerSecurity swaggerSecurity;
 
+    @Bean
     public Docket docket() {
         return new Docket(DocumentationType.OAS_30)
                 .enable(swaggerProperties.getEnable())

@@ -135,4 +135,9 @@
         #{item.collectTag,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
+
+  <delete id="deleteByUser">
+    delete from pix_user_collect
+    where pix_user_id = #{userId,jdbcType=VARCHAR} and picture_collection_id = #{id,jdbcType=VARCHAR}
+  </delete>
 </mapper>

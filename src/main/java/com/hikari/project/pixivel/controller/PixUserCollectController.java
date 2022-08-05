@@ -93,11 +93,11 @@ public class PixUserCollectController {
     }
 
     /**
-     * 收藏标签
+     * 获取收藏标签
      * @return 标签
      */
     @GetMapping("select/tag")
-    @ApiOperation(value = "收藏标签", notes = "收藏标签")
+    @ApiOperation(value = "获取收藏标签", notes = "获取收藏标签")
     public Result<List<String>> selectTag() {
         return Result.success(pixUserCollectServiceImpl.selectTag());
     }
@@ -111,5 +111,16 @@ public class PixUserCollectController {
     @ApiOperation(value = "批量标签收藏", notes = "批量标签收藏")
     public Result<String> updateTagBatch(@RequestBody PixUserCollect pixUserCollect) {
         return CompareExecute.compare(pixUserCollectServiceImpl.updateTagBatch(pixUserCollect), CompareExecute.ExecuteStatus.UPDATE);
+    }
+
+    /**
+     * 取消收藏
+     * @param id 图片集合
+     * @return 是否成功
+     */
+    @DeleteMapping("user/delete/{id}")
+    @ApiOperation(value = "取消收藏", notes = "取消收藏")
+    public Result<String> userDelete(@PathVariable(value = "id") String id) {
+        return CompareExecute.compare(pixUserCollectServiceImpl.deleteByUser(id), CompareExecute.ExecuteStatus.DELETE);
     }
 }

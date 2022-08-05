@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -15,25 +16,25 @@ import java.util.UUID;
 
 @Slf4j
 public class JwtUtils {
-    public static final Long JWT_TTL = 60 * 60 * 1000L;
+    public static Long JWT_TTL = 60 * 60 * 1000L;
 
     @Value("${jwt.secret}")
-    public static String JWT_KEY;
+    public static String JWT_KEY = "asdw";
 
     @Value("${jwt.header}")
     private String header;
 
-    public static String createJwt(final String subject) {
+    public static String createJwt(String subject) {
         JwtBuilder builder = getJwtBuilder(subject, null, IdUtils.uuid());
         return builder.compact();
     }
 
-    public static String createJwt(final String subject, final Long ttlMillis) {
+    public static String createJwt(String subject, Long ttlMillis) {
         JwtBuilder builder = getJwtBuilder(subject, ttlMillis, IdUtils.uuid());
         return builder.compact();
     }
 
-    private static JwtBuilder getJwtBuilder(final String subject, Long ttlMillis, final String uuid) {
+    private static JwtBuilder getJwtBuilder(String subject, Long ttlMillis, String uuid) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         SecretKey secretKey = generalKey();
         long nowMillis = System.currentTimeMillis();
@@ -49,7 +50,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setId(uuid)
                 .setSubject(subject)
-                .setIssuer("demo")
+                .setIssuer("lkc39miku_cn")
                 .setIssuedAt(now)
                 .signWith(signatureAlgorithm, secretKey)
                 .setExpiration(expDate);

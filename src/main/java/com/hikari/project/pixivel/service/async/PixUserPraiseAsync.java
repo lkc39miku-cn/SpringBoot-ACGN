@@ -29,4 +29,8 @@ public class PixUserPraiseAsync {
     public static void refreshPraisePictureCollection(String id) {
         SpringUtils.getBean(PixPictureCollectionServiceImpl.class).refreshPraise(id);
     }
+
+    public static void refreshDeletePraisePictureCollection(String id) {
+        SpringUtils.getBean(PixPictureCollectionServiceImpl.class).refreshDeletePraise(id);
+    }
 }

@@ -29,4 +29,6 @@ public interface PixUserCollectMapper {
     List<String> selectTag(String id);
 
     int updateTagBatch(@Param(value = "pixUserCollect") PixUserCollect pixUserCollect);
+
+    int deleteByUser(@Param(value = "userId") String userId, @Param(value = "id") String id);
 }

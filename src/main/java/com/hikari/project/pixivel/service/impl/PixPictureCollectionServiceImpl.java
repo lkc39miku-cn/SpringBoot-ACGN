@@ -228,4 +228,28 @@ public class PixPictureCollectionServiceImpl implements PixPictureCollectionServ
                 .setId(id)
                 .setPraise(pixPictureCollection.getPraise() + 1));
     }
+
+    @Override
+    public int refreshCollect(String pictureCollectionId) {
+        PixPictureCollection pixPictureCollection = pixPictureCollectionMapper.selectByPrimaryKey(pictureCollectionId);
+        return pixPictureCollectionMapper.updateByPrimaryKeySelective(new PixPictureCollection()
+                .setId(pictureCollectionId)
+                .setPraise(pixPictureCollection.getCollect() + 1));
+    }
+
+    @Override
+    public int refreshDeletePraise(String id) {
+        PixPictureCollection pixPictureCollection = pixPictureCollectionMapper.selectByPrimaryKey(id);
+        return pixPictureCollectionMapper.updateByPrimaryKeySelective(new PixPictureCollection()
+                .setId(id)
+                .setPraise(pixPictureCollection.getPraise() - 1));
+    }
+
+    @Override
+    public int refreshDeleteCollect(String id) {
+        PixPictureCollection pixPictureCollection = pixPictureCollectionMapper.selectByPrimaryKey(id);
+        return pixPictureCollectionMapper.updateByPrimaryKeySelective(new PixPictureCollection()
+                .setId(id)
+                .setPraise(pixPictureCollection.getCollect() - 1));
+    }
 }
